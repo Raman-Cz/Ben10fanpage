@@ -7,8 +7,9 @@ gsap.registerPlugin(ScrollTrigger);
 export function setupScrollSync(sceneContext) {
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const lenis = new Lenis({
-    lerp: reduced ? 1 : 0.11,
-    smoothWheel: !reduced
+    lerp: reduced ? 1 : 0.08,
+    smoothWheel: !reduced,
+    syncTouch: true
   });
 
   lenis.on("scroll", ScrollTrigger.update);

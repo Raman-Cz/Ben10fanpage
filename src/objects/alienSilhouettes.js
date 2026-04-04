@@ -13,11 +13,12 @@ export function buildSilhouettes(root) {
     const item = document.createElement("div");
     item.className = "silhouette";
     item.setAttribute("data-name", name);
+    if (name === "Heatblast") item.classList.add("active");
     
     const img = document.createElement("img");
     img.src = SILHOUETTE_IMAGES[name];
     img.alt = name;
-    img.style.cssText = "width: 80%; height: 80%; object-fit: contain; filter: brightness(0.3) contrast(1.2);";
+    img.style.cssText = "width: 80%; height: 80%; object-fit: contain; filter: brightness(0.4) contrast(1.2);";
     item.appendChild(img);
     
     root.appendChild(item);

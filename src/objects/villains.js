@@ -2,22 +2,26 @@ const VILLAINS = [
   { 
     name: "Vilgax", 
     summary: "Intergalactic warlord driven by Omnitrix conquest. The most dangerous alien in the galaxy.",
-    icon: "👹"
+    icon: "👹",
+    image: "/assets/images/vilgax.png"
   },
   { 
     name: "Kevin 11", 
     summary: "Mutating rival with unstable powers and tactical aggression. Can absorb any material.",
-    icon: "💀"
+    icon: "💀",
+    image: "/assets/images/kevin.png"
   },
   { 
     name: "Ghostfreak", 
     summary: "Ectonurite terror with stealth dominance and psychic pressure. Once part of the Omnitrix.",
-    icon: "👻"
+    icon: "👻",
+    image: "/assets/images/ghostfreak.png"
   },
   { 
     name: "Hex", 
     summary: "Dark mage using rune casting and corrupted relics. Master of black magic and sorcery.",
-    icon: "🔮"
+    icon: "🔮",
+    image: "/assets/images/hex.png"
   }
 ];
 
@@ -27,6 +31,7 @@ export function renderVillains(root) {
     const card = document.createElement("article");
     card.className = "villain-card";
     card.innerHTML = `
+      <img src="${villain.image}" alt="${villain.name}" class="villain-image" onerror="this.style.display='none'" />
       <span class="villain-icon">${villain.icon}</span>
       <h3>${villain.name}</h3>
       <p>${villain.summary}</p>

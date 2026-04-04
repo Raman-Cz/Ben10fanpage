@@ -21,9 +21,15 @@ export function initHeroSection(sceneContext) {
   const copy = document.querySelector(".hero-copy");
   const stats = document.querySelector(".hero-stats");
   const imageContainer = document.querySelector(".hero-image-container");
+  const heroBg = document.querySelector(".hero-bg");
 
   splitChars(title);
   const chars = title.querySelectorAll(".char");
+
+  gsap.fromTo(heroBg, 
+    { opacity: 0 },
+    { opacity: 1, duration: 1.5, ease: "power2.out", delay: 0.1 }
+  );
 
   gsap.fromTo(imageContainer, 
     { opacity: 0, scale: 0.8, y: 30 },
@@ -63,19 +69,19 @@ export function initHeroSection(sceneContext) {
     scrollTrigger: {
       trigger: section,
       start: "top top",
-      end: "+=250%",
-      scrub: 1,
+      end: "+=200%",
+      scrub: 1.5,
       pin: true
     }
   });
 
-  tl.to(imageContainer, { opacity: 0, scale: 0.7, y: -50, duration: 0.3 }, 0);
-  tl.to(sceneContext.omnitrix.scale, { x: 1.3, y: 1.3, z: 1.3, duration: 0.3, ease: "power2.out" }, 0);
-  tl.to(sceneContext.energyLight, { intensity: 35, duration: 0.2 }, 0.1);
-  tl.to(sceneContext.camera.position, { z: 2.5, y: 0.3, duration: 0.25 }, 0.2);
-  tl.to([badge, copy, stats], { opacity: 0, y: -30, duration: 0.15 }, 0);
-  tl.to(chars, { opacity: 0, scale: 1.2, stagger: 0.01, duration: 0.15 }, 0);
-  tl.to(cue, { opacity: 0, duration: 0.1 }, 0.15);
+  tl.to(imageContainer, { opacity: 0, scale: 0.7, y: -50, duration: 0.4 }, 0);
+  tl.to(sceneContext.omnitrix.scale, { x: 1.3, y: 1.3, z: 1.3, duration: 0.4, ease: "power2.out" }, 0);
+  tl.to(sceneContext.energyLight, { intensity: 35, duration: 0.3 }, 0.1);
+  tl.to(sceneContext.camera.position, { z: 2.5, y: 0.3, duration: 0.3 }, 0.2);
+  tl.to([badge, copy, stats], { opacity: 0, y: -30, duration: 0.2 }, 0);
+  tl.to(chars, { opacity: 0, scale: 1.1, stagger: 0.01, duration: 0.2 }, 0);
+  tl.to(cue, { opacity: 0, duration: 0.15 }, 0.1);
 
   ScrollTrigger.refresh();
 }
