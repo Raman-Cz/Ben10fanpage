@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ben 10 Cinematic Fan Site</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="loader" aria-live="polite">
+      <div class="loader-orb"></div>
+      <p class="loader-label">Synchronizing Omnitrix Core</p>
+      <div class="loader-track"><span id="loader-bar"></span></div>
+      <p class="loader-percent">0%</p>
+    </div>
+
+    <canvas id="three-canvas" aria-hidden="true"></canvas>
+    <div id="flash-overlay" aria-hidden="true"></div>
+
+    <main id="app">
+      <section id="hero" class="panel panel-hero">
+        <div class="hero-image-container">
+          <img src="https://i.pinimg.com/originals/fc/eb/ba/fcebbad22c69c1f1f1e1c2b5e3f6a7c8.png" alt="Ben Tennyson with Omnitrix" class="hero-image" />
+          <div class="hero-image-glow"></div>
+        </div>
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            <span class="badge-text">Omnitrix Protocol Active</span>
+          </div>
+          <h1 id="hero-title">It started with a <span class="highlight">watch</span></h1>
+          <p class="hero-copy">
+            A kid. A watch. Unlimited power. Scroll to charge the core and relive the ultimate transformation sequence.
+          </p>
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-value">10</span>
+              <span class="stat-label">Aliens</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+              <span class="stat-value">∞</span>
+              <span class="stat-label">Possibilities</span>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-cue" aria-hidden="true">
+          <span>Scroll to transform</span>
+          <i></i>
+        </div>
+        <div class="hero-particles" aria-hidden="true"></div>
+      </section>
+
+      <section id="transformation" class="panel panel-transform">
+        <div class="transform-copy">
+          <div class="section-label">Phase 01</div>
+          <h2>Transformation <span class="highlight">Sequence</span></h2>
+          <p>DNA signatures lock in as the Omnitrix dial spins beyond critical speed, channeling cosmic energy into biological form.</p>
+          <div class="dna-container" id="dna-helix"></div>
+        </div>
+        <div id="silhouette-stack" aria-hidden="true">
+          <div class="silhouette active" data-name="Heatblast"></div>
+          <div class="silhouette" data-name="Four Arms"></div>
+          <div class="silhouette" data-name="XLR8"></div>
+          <div class="silhouette" data-name="Diamondhead"></div>
+          <div class="silhouette" data-name="Upgrade"></div>
+          <div class="silhouette" data-name="Ghostfreak"></div>
+        </div>
+      </section>
+
+      <section id="showcase" class="panel panel-showcase">
+        <article class="alien-panel heatblast" data-alien="Heatblast">
+          <div class="alien-image-wrapper">
+            <img src="https://static.wikia.nocookie.net/ben10/images/3/3a/Heatblast_new.png" alt="Heatblast" class="alien-image" />
+            <div class="alien-glow heatblast-glow"></div>
+          </div>
+          <div class="alien-content">
+            <div class="alien-number">01</div>
+            <h3>Heatblast</h3>
+            <p class="alien-subtitle">Pyrokinetic | Aerial Combat</p>
+            <p>The living inferno from Pyros. Heatblast commands plasma fire and flies at supersonic speeds through thermal propulsion.</p>
+            <div class="alien-stats">
+              <div class="alien-stat"><span>Power</span><div class="stat-bar" style="--value: 95%"></div></div>
+              <div class="alien-stat"><span>Speed</span><div class="stat-bar" style="--value: 75%"></div></div>
+              <div class="alien-stat"><span>Defense</span><div class="stat-bar" style="--value: 60%"></div></div>
+            </div>
+          </div>
+          <canvas class="fire-canvas" aria-hidden="true"></canvas>
+        </article>
+
+        <article class="alien-panel fourarms" data-alien="Four Arms">
+          <div class="alien-image-wrapper">
+            <img src="https://static.wikia.nocookie.net/ben10/images/e/e6/Four_Arms_new.png" alt="Four Arms" class="alien-image" />
+            <div class="alien-glow fourarms-glow"></div>
+          </div>
+          <div class="alien-content">
+            <div class="alien-number">02</div>
+            <h3>Four Arms</h3>
+            <p class="alien-subtitle">Super Strength | Combat</p>
+            <p>The Tetramand bruiser. Four Arms delivers seismic punches capable of shattering mountains and creating shockwave devastation.</p>
+            <div class="alien-stats">
+              <div class="alien-stat"><span>Power</span><div class="stat-bar" style="--value: 100%"></div></div>
+              <div class="alien-stat"><span>Speed</span><div class="stat-bar" style="--value: 45%"></div></div>
+              <div class="alien-stat"><span>Defense</span><div class="stat-bar" style="--value: 90%"></div></div>
+            </div>
+          </div>
+          <div class="impact-ring" aria-hidden="true"></div>
+        </article>
+
+        <article class="alien-panel xlr8" data-alien="XLR8">
+          <div class="alien-image-wrapper">
+            <img src="https://static.wikia.nocookie.net/ben10/images/a/a5/XLR8_new.png" alt="XLR8" class="alien-image" />
+            <div class="alien-glow xlr8-glow"></div>
+          </div>
+          <div class="alien-content">
+            <div class="alien-number">03</div>
+            <h3>XLR8</h3>
+            <p class="alien-subtitle">Speed | Reflexes</p>
+            <p>The Kineceleran blur. XLR8 moves at Mach 5, leaving speed distortion fields and afterimages in his wake.</p>
+            <div class="alien-stats">
+              <div class="alien-stat"><span>Power</span><div class="stat-bar" style="--value: 50%"></div></div>
+              <div class="alien-stat"><span>Speed</span><div class="stat-bar" style="--value: 100%"></div></div>
+              <div class="alien-stat"><span>Defense</span><div class="stat-bar" style="--value: 55%"></div></div>
+            </div>
+          </div>
+          <canvas class="speed-canvas" aria-hidden="true"></canvas>
+        </article>
+
+        <article class="alien-panel diamondhead" data-alien="Diamondhead">
+          <div class="alien-image-wrapper">
+            <img src="https://static.wikia.nocookie.net/ben10/images/3/33/Diamondhead_-_-Omniverse_2.png" alt="Diamondhead" class="alien-image" />
+            <div class="alien-glow diamondhead-glow"></div>
+          </div>
+          <div class="alien-content">
+            <div class="alien-number">04</div>
+            <h3>Diamondhead</h3>
+            <p class="alien-subtitle">Crystal | Defense</p>
+            <p>The Petrosapien gem. Diamondhead's crystalline body refracts light into deadly shards and deflects attacks with prismatic armor.</p>
+            <div class="alien-stats">
+              <div class="alien-stat"><span>Power</span><div class="stat-bar" style="--value: 75%"></div></div>
+              <div class="alien-stat"><span>Speed</span><div class="stat-bar" style="--value: 60%"></div></div>
+              <div class="alien-stat"><span>Defense</span><div class="stat-bar" style="--value: 100%"></div></div>
+            </div>
+          </div>
+          <canvas class="crystal-canvas" aria-hidden="true"></canvas>
+        </article>
+      </section>
+
+      <section id="universe" class="panel panel-universe">
+        <div class="parallax-bg">
+          <div class="layer layer-a" data-depth="0.2"></div>
+          <div class="layer layer-b" data-depth="0.5"></div>
+          <div class="layer layer-c" data-depth="0.8"></div>
+        </div>
+        <div class="section-header">
+          <div class="section-label danger">The Opposition</div>
+          <h2>Facing the <span class="highlight">Villains</span></h2>
+        </div>
+        <div id="villain-grid" class="villain-grid"></div>
+      </section>
+
+      <section id="selection" class="panel panel-selection">
+        <header class="selection-header">
+          <div class="section-label success">Interactive Mode</div>
+          <h2>Choose Your <span class="highlight">Hero</span></h2>
+          <p>Select an alien to trigger a full transformation sequence.</p>
+        </header>
+        <div class="selection-grid">
+          <button class="alien-card" data-alien="Heatblast">
+            <img src="https://static.wikia.nocookie.net/ben10/images/3/3a/Heatblast_new.png" alt="Heatblast" class="card-image" />
+            <span class="card-name">Heatblast</span>
+            <div class="card-ring"></div>
+          </button>
+          <button class="alien-card" data-alien="Four Arms">
+            <img src="https://static.wikia.nocookie.net/ben10/images/e/e6/Four_Arms_new.png" alt="Four Arms" class="card-image" />
+            <span class="card-name">Four Arms</span>
+            <div class="card-ring"></div>
+          </button>
+          <button class="alien-card" data-alien="XLR8">
+            <img src="https://static.wikia.nocookie.net/ben10/images/a/a5/XLR8_new.png" alt="XLR8" class="card-image" />
+            <span class="card-name">XLR8</span>
+            <div class="card-ring"></div>
+          </button>
+          <button class="alien-card" data-alien="Diamondhead">
+            <img src="https://static.wikia.nocookie.net/ben10/images/3/33/Diamondhead_-_-Omniverse_2.png" alt="Diamondhead" class="card-image" />
+            <span class="card-name">Diamondhead</span>
+            <div class="card-ring"></div>
+          </button>
+          <button class="alien-card" data-alien="Upgrade">
+            <img src="https://static.wikia.nocookie.net/ben10/images/6/6c/Upgrade_new.png" alt="Upgrade" class="card-image" />
+            <span class="card-name">Upgrade</span>
+            <div class="card-ring"></div>
+          </button>
+          <button class="alien-card" data-alien="Ghostfreak">
+            <img src="https://static.wikia.nocookie.net/ben10/images/1/17/Ghostfreak_2.png" alt="Ghostfreak" class="card-image" />
+            <span class="card-name">Ghostfreak</span>
+            <div class="card-ring"></div>
+          </button>
+        </div>
+        <aside id="selection-detail" class="selection-detail">
+          <div class="detail-icon">⚡</div>
+          <h3>Standby Mode</h3>
+          <p>Hover or tap an alien to preview transformation profile.</p>
+          <div class="detail-stats"></div>
+        </aside>
+      </section>
+    </main>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
