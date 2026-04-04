@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300">
+  <defs>
+    <linearGradient id="upgradeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#9999ff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#6666cc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#333399;stop-opacity:1" />
+    </linearGradient>
+    <filter id="upgradeGlow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="200" height="300" fill="#0a0a1a"/>
+  <g filter="url(#upgradeGlow)">
+    <ellipse cx="100" cy="140" rx="55" ry="70" fill="url(#upgradeGrad)"/>
+    <ellipse cx="100" cy="120" rx="35" ry="40" fill="#ccccff" opacity="0.8"/>
+    <circle cx="85" cy="110" r="10" fill="#fff"/>
+    <circle cx="115" cy="110" r="10" fill="#fff"/>
+    <rect x="45" y="180" width="20" height="70" rx="8" fill="url(#upgradeGrad)"/>
+    <rect x="135" y="180" width="20" height="70" rx="8" fill="url(#upgradeGrad)"/>
+    <rect x="80" y="200" width="15" height="60" rx="6" fill="url(#upgradeGrad)"/>
+    <rect x="105" y="200" width="15" height="60" rx="6" fill="url(#upgradeGrad)"/>
+    <circle cx="100" cy="140" r="8" fill="#00ff00" opacity="0.8"/>
+    <line x1="60" y1="100" x2="40" y2="80" stroke="#9999ff" stroke-width="3"/>
+    <line x1="140" y1="100" x2="160" y2="80" stroke="#9999ff" stroke-width="3"/>
+  </g>
+  <text x="100" y="25" text-anchor="middle" fill="#aaaaff" font-family="Arial" font-weight="bold" font-size="14">UPGRADE</text>
+</svg>
