@@ -7,9 +7,11 @@ gsap.registerPlugin(ScrollTrigger);
 export function setupScrollSync(sceneContext) {
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const lenis = new Lenis({
-    lerp: reduced ? 1 : 0.08,
+    lerp: reduced ? 1 : 0.06,
     smoothWheel: !reduced,
-    syncTouch: true
+    wheelMultiplier: 0.8,
+    touchMultiplier: 1.5,
+    syncTouch: true,
   });
 
   lenis.on("scroll", ScrollTrigger.update);
@@ -21,7 +23,11 @@ export function setupScrollSync(sceneContext) {
   });
 
   gsap.ticker.lagSmoothing(0);
-  ScrollTrigger.refresh();
+
+  // Delayed refresh to ensure DOM is laid out
+  requestAnimationFrame(() => {
+    ScrollTrigger.refresh();
+  });
 
   return { lenis };
 }

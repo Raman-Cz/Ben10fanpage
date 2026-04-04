@@ -3,15 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ben 10 Cinematic Fan Site</title>
+    <meta name="description" content="The Ben 10 Chronicles — A cinematic scroll-driven retelling of the original Ben 10 series. Discover the Omnitrix, meet the aliens, and face the villains." />
+    <title>The Ben 10 Chronicles</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
+    <!-- Loader -->
     <div id="loader" aria-live="polite">
       <div class="loader-orb"></div>
       <p class="loader-label">Synchronizing Omnitrix Core</p>
@@ -19,226 +21,481 @@
       <p class="loader-percent">0%</p>
     </div>
 
+    <!-- 3D Canvas -->
     <canvas id="three-canvas" aria-hidden="true"></canvas>
+
+    <!-- Flash Overlay -->
     <div id="flash-overlay" aria-hidden="true"></div>
 
+    <!-- Chapter Progress -->
+    <nav id="chapter-nav" aria-label="Chapter navigation">
+      <div class="chapter-dot active" data-chapter="0" title="Prologue"></div>
+      <div class="chapter-dot" data-chapter="1" title="The Discovery"></div>
+      <div class="chapter-dot" data-chapter="2" title="The Original 10"></div>
+      <div class="chapter-dot" data-chapter="3" title="Grandpa Max's Secret"></div>
+      <div class="chapter-dot" data-chapter="4" title="The Villains Rise"></div>
+      <div class="chapter-dot" data-chapter="5" title="Ghostfreak's Escape"></div>
+      <div class="chapter-dot" data-chapter="6" title="The Final Battle"></div>
+      <div class="chapter-dot" data-chapter="7" title="Legacy"></div>
+    </nav>
+
+    <!-- Floating Chapter Title -->
+    <div id="chapter-label" aria-hidden="true">
+      <span class="chapter-num">00</span>
+      <span class="chapter-name">Prologue</span>
+    </div>
+
     <main id="app">
-      <section id="hero" class="panel panel-hero">
-        <div class="hero-bg">
-          <img src="/assets/images/omnitrix-bg.png" alt="Omnitrix Background" />
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- CHAPTER 0: PROLOGUE                     -->
+      <!-- ═══════════════════════════════════════ -->
+      <section id="prologue" class="chapter" data-chapter="0" data-theme="void">
+        <div class="chapter-bg prologue-bg">
+          <div class="starfield" aria-hidden="true"></div>
         </div>
-        <div class="hero-image-container">
-          <img src="/assets/images/ben-tennyson.png" alt="Ben Tennyson with Omnitrix" class="hero-image" />
-          <div class="hero-image-glow"></div>
-        </div>
-        <div class="hero-content">
-          <div class="hero-badge">
+        <div class="chapter-content prologue-content">
+          <div class="prologue-badge">
             <span class="badge-dot"></span>
             <span class="badge-text">Omnitrix Protocol Active</span>
           </div>
-          <h1 id="hero-title">It started with a <span class="highlight">watch</span></h1>
-          <p class="hero-copy">
-            A kid. A watch. Unlimited power. Scroll to charge the core and relive the ultimate transformation sequence.
+          <h1 id="prologue-title">
+            It started when an alien device did what it did
+          </h1>
+          <p class="prologue-subtitle">
+            And stuck itself upon his wrist with secrets that it hid.
           </p>
-          <div class="hero-stats">
+          <div class="prologue-stats">
             <div class="stat">
               <span class="stat-value">10</span>
               <span class="stat-label">Aliens</span>
             </div>
             <div class="stat-divider"></div>
             <div class="stat">
+              <span class="stat-value">4</span>
+              <span class="stat-label">Seasons</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
               <span class="stat-value">∞</span>
-              <span class="stat-label">Possibilities</span>
+              <span class="stat-label">Adventures</span>
             </div>
           </div>
-        </div>
-        <div class="scroll-cue" aria-hidden="true">
-          <span>Scroll to transform</span>
-          <i></i>
-        </div>
-        <div class="hero-particles" aria-hidden="true"></div>
-      </section>
-
-      <section id="transformation" class="panel panel-transform">
-        <div class="transform-copy">
-          <div class="section-label">Phase 01</div>
-          <h2>Transformation <span class="highlight">Sequence</span></h2>
-          <p>DNA signatures lock in as the Omnitrix dial spins beyond critical speed, channeling cosmic energy into biological form.</p>
-          <div class="dna-container" id="dna-helix"></div>
-        </div>
-        <div class="transform-omnitrix">
-          <img src="/assets/images/omnitrix.png" alt="Omnitrix" />
-        </div>
-        <div id="silhouette-stack" aria-hidden="true">
-          <div class="silhouette active" data-name="Heatblast"></div>
-          <div class="silhouette" data-name="Four Arms"></div>
-          <div class="silhouette" data-name="XLR8"></div>
-          <div class="silhouette" data-name="Diamondhead"></div>
-          <div class="silhouette" data-name="Upgrade"></div>
-          <div class="silhouette" data-name="Ghostfreak"></div>
+          <div class="scroll-cue" aria-hidden="true">
+            <span>Scroll to begin the story</span>
+            <i></i>
+          </div>
         </div>
       </section>
 
-      <section id="showcase" class="panel panel-showcase">
-        <article class="alien-panel heatblast" data-alien="Heatblast">
-          <div class="alien-image-wrapper">
-            <img src="/assets/images/heatblast.png" alt="Heatblast" class="alien-image" />
-            <img src="/assets/images/heatblast2.png" alt="Heatblast Alt" class="alien-image secondary" />
-            <div class="alien-glow heatblast-glow"></div>
-          </div>
-          <div class="alien-content">
-            <div class="alien-number">01</div>
-            <h3>Heatblast</h3>
-            <p class="alien-subtitle">Pyrokinetic | Aerial Combat</p>
-            <p>The living inferno from Pyros. Heatblast commands plasma fire and flies at supersonic speeds through thermal propulsion.</p>
-            <div class="alien-stats">
-              <div class="alien-stat"><span>Power</span><div class="stat-bar" style="--value: 95%"></div></div>
-              <div class="alien-stat"><span>Speed</span><div class="stat-bar" style="--value: 75%"></div></div>
-              <div class="alien-stat"><span>Defense</span><div class="stat-bar" style="--value: 60%"></div></div>
+      <!-- ═══════════════════════════════════════ -->
+      <!-- CHAPTER 1: THE DISCOVERY                -->
+      <!-- ═══════════════════════════════════════ -->
+      <section id="discovery" class="chapter" data-chapter="1" data-theme="discovery">
+        <div class="chapter-bg discovery-bg"></div>
+        <div class="chapter-inner discovery-layout">
+          <div class="story-text discovery-text">
+            <div class="chapter-tag">Chapter One</div>
+            <h2>The <span class="highlight">Discovery</span></h2>
+            <div class="story-narration">
+              <p class="narration-line" data-delay="0">It was supposed to be a normal summer.</p>
+              <p class="narration-line" data-delay="1">Ten-year-old <strong>Ben Tennyson</strong> was stuck on a cross-country road trip with his cousin <strong>Gwen</strong> and their <strong>Grandpa Max</strong> in their beat-up RV, the Rustbucket.</p>
+              <p class="narration-line" data-delay="2">Then a star fell from the sky.</p>
+              <p class="narration-line" data-delay="3">Inside the crater, a strange watch-like device latched onto Ben's wrist — and <em>refused to come off</em>.</p>
+              <p class="narration-line" data-delay="4">The <strong>Omnitrix</strong> — a device holding the DNA of a million alien species — had chosen its bearer.</p>
             </div>
           </div>
-          <canvas class="fire-canvas" aria-hidden="true"></canvas>
-        </article>
-
-        <article class="alien-panel fourarms" data-alien="Four Arms">
-          <div class="alien-image-wrapper">
-            <img src="/assets/images/fourarms.png" alt="Four Arms" class="alien-image" />
-            <img src="/assets/images/fourarms2.png" alt="Four Arms Alt" class="alien-image secondary" />
-            <div class="alien-glow fourarms-glow"></div>
-          </div>
-          <div class="alien-content">
-            <div class="alien-number">02</div>
-            <h3>Four Arms</h3>
-            <p class="alien-subtitle">Super Strength | Combat</p>
-            <p>The Tetramand bruiser. Four Arms delivers seismic punches capable of shattering mountains and creating shockwave devastation.</p>
-            <div class="alien-stats">
-              <div class="alien-stat"><span>Power</span><div class="stat-bar" style="--value: 100%"></div></div>
-              <div class="alien-stat"><span>Speed</span><div class="stat-bar" style="--value: 45%"></div></div>
-              <div class="alien-stat"><span>Defense</span><div class="stat-bar" style="--value: 90%"></div></div>
+          <div class="discovery-visual">
+            <div class="discovery-image-wrap">
+              <img src="/assets/images/ben-tennyson.png" alt="Ben Tennyson with the Omnitrix" class="discovery-hero-img" />
+              <div class="discovery-glow"></div>
             </div>
+            <div class="meteor-trail" aria-hidden="true"></div>
           </div>
-          <div class="impact-ring" aria-hidden="true"></div>
-        </article>
-
-        <article class="alien-panel xlr8" data-alien="XLR8">
-          <div class="alien-image-wrapper">
-            <img src="/assets/images/xlr8.png" alt="XLR8" class="alien-image" />
-            <img src="/assets/images/xlr82.png" alt="XLR8 Alt" class="alien-image secondary" />
-            <div class="alien-glow xlr8-glow"></div>
-          </div>
-          <div class="alien-content">
-            <div class="alien-number">03</div>
-            <h3>XLR8</h3>
-            <p class="alien-subtitle">Speed | Reflexes</p>
-            <p>The Kineceleran blur. XLR8 moves at Mach 5, leaving speed distortion fields and afterimages in his wake.</p>
-            <div class="alien-stats">
-              <div class="alien-stat"><span>Power</span><div class="stat-bar" style="--value: 50%"></div></div>
-              <div class="alien-stat"><span>Speed</span><div class="stat-bar" style="--value: 100%"></div></div>
-              <div class="alien-stat"><span>Defense</span><div class="stat-bar" style="--value: 55%"></div></div>
-            </div>
-          </div>
-          <canvas class="speed-canvas" aria-hidden="true"></canvas>
-        </article>
-
-        <article class="alien-panel upgrade" data-alien="Upgrade">
-          <div class="alien-image-wrapper">
-            <img src="/assets/images/upgrade.png" alt="Upgrade" class="alien-image" />
-            <img src="/assets/images/upgrade2.png" alt="Upgrade Alt" class="alien-image secondary" />
-            <div class="alien-glow upgrade-glow"></div>
-          </div>
-          <div class="alien-content">
-            <div class="alien-number">04</div>
-            <h3>Upgrade</h3>
-            <p class="alien-subtitle">Technology | Adaptation</p>
-            <p>The Galvanic Mechamorph. Upgrade can scan and merge with any technology, upgrading it beyond its original design.</p>
-            <div class="alien-stats">
-              <div class="alien-stat"><span>Power</span><div class="stat-bar" style="--value: 55%"></div></div>
-              <div class="alien-stat"><span>Speed</span><div class="stat-bar" style="--value: 70%"></div></div>
-              <div class="alien-stat"><span>Adaptation</span><div class="stat-bar" style="--value: 100%"></div></div>
-            </div>
-          </div>
-          <canvas class="upgrade-canvas" aria-hidden="true"></canvas>
-        </article>
-
-        <article class="alien-panel ripjaws" data-alien="Ripjaws">
-          <div class="alien-image-wrapper">
-            <img src="/assets/images/ripjaws.png" alt="Ripjaws" class="alien-image" />
-            <img src="/assets/images/ripjaws2.png" alt="Ripjaws Alt" class="alien-image secondary" />
-            <div class="alien-glow ripjaws-glow"></div>
-          </div>
-          <div class="alien-content">
-            <div class="alien-number">05</div>
-            <h3>Ripjaws</h3>
-            <p class="alien-subtitle">Aquatic | Combat</p>
-            <p>The Piscciss Volann predator. Ripjaws dominates both land and sea with powerful jaws and aquatic capabilities.</p>
-            <div class="alien-stats">
-              <div class="alien-stat"><span>Power</span><div class="stat-bar" style="--value: 70%"></div></div>
-              <div class="alien-stat"><span>Speed</span><div class="stat-bar" style="--value: 60%"></div></div>
-              <div class="alien-stat"><span>Aquatic</span><div class="stat-bar" style="--value: 100%"></div></div>
-            </div>
-          </div>
-          <canvas class="ripjaws-canvas" aria-hidden="true"></canvas>
-        </article>
+        </div>
       </section>
 
-      <section id="universe" class="panel panel-universe">
-        <div class="parallax-bg">
-          <div class="layer layer-a" data-depth="0.2"></div>
-          <div class="layer layer-b" data-depth="0.5"></div>
-          <div class="layer layer-c" data-depth="0.8"></div>
+      <!-- ═══════════════════════════════════════ -->
+      <!-- CHAPTER 2: THE ORIGINAL 10              -->
+      <!-- ═══════════════════════════════════════ -->
+      <section id="aliens" class="chapter" data-chapter="2" data-theme="aliens">
+        <div class="chapter-bg aliens-bg"></div>
+        <div class="chapter-inner aliens-header-area">
+          <div class="chapter-tag">Chapter Two</div>
+          <h2>The Original <span class="highlight">10</span></h2>
+          <p class="aliens-intro">The Omnitrix granted Ben access to ten alien forms — each with unique powers, each from a different world across the galaxy.</p>
         </div>
-        <div class="section-header">
-          <div class="section-label danger">The Opposition</div>
-          <h2>Facing the <span class="highlight">Villain</span></h2>
+        <div class="aliens-carousel" id="aliens-carousel">
+          <div class="alien-slide" data-alien="heatblast" data-color="#ff6b00">
+            <div class="alien-slide-visual">
+              <img src="/assets/images/heatblast.png" alt="Heatblast" class="alien-slide-img" />
+              <div class="alien-slide-glow" style="--alien-color: #ff6b00"></div>
+            </div>
+            <div class="alien-slide-info">
+              <span class="alien-num">01</span>
+              <h3>Heatblast</h3>
+              <p class="alien-species">Pyronite from Pyros</p>
+              <p class="alien-story">Ben's very first transformation. In a panic, he became a living fireball — and accidentally set the forest on fire. But he learned to control the flames, discovering he could fly by projecting fire downward.</p>
+              <div class="alien-bars">
+                <div class="bar-row"><span>Power</span><div class="bar-track"><div class="bar-fill" style="--val:95%"></div></div></div>
+                <div class="bar-row"><span>Speed</span><div class="bar-track"><div class="bar-fill" style="--val:75%"></div></div></div>
+                <div class="bar-row"><span>Defense</span><div class="bar-track"><div class="bar-fill" style="--val:60%"></div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alien-slide" data-alien="wildmutt" data-color="#e88a2a">
+            <div class="alien-slide-visual">
+              <img src="/assets/images/wildmutt.png" alt="Wildmutt" class="alien-slide-img" />
+              <div class="alien-slide-glow" style="--alien-color: #e88a2a"></div>
+            </div>
+            <div class="alien-slide-info">
+              <span class="alien-num">02</span>
+              <h3>Wildmutt</h3>
+              <p class="alien-species">Vulpimancer from Vulpin</p>
+              <p class="alien-story">A blind, feral beast that sees through scent and vibration. Wildmutt can't speak but possesses superhuman agility, razor-sharp claws, and a sixth sense that makes ambushes impossible.</p>
+              <div class="alien-bars">
+                <div class="bar-row"><span>Power</span><div class="bar-track"><div class="bar-fill" style="--val:70%"></div></div></div>
+                <div class="bar-row"><span>Speed</span><div class="bar-track"><div class="bar-fill" style="--val:85%"></div></div></div>
+                <div class="bar-row"><span>Senses</span><div class="bar-track"><div class="bar-fill" style="--val:100%"></div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alien-slide" data-alien="diamondhead" data-color="#00ffcc">
+            <div class="alien-slide-visual">
+              <img src="/assets/images/diamondhead.png" alt="Diamondhead" class="alien-slide-img" />
+              <div class="alien-slide-glow" style="--alien-color: #00ffcc"></div>
+            </div>
+            <div class="alien-slide-info">
+              <span class="alien-num">03</span>
+              <h3>Diamondhead</h3>
+              <p class="alien-species">Petrosapien from Petropia</p>
+              <p class="alien-story">A living crystal warrior who can reshape his body into weapons — blades, shields, projectiles. Nearly indestructible, Diamondhead became Ben's go-to for heavy combat.</p>
+              <div class="alien-bars">
+                <div class="bar-row"><span>Power</span><div class="bar-track"><div class="bar-fill" style="--val:85%"></div></div></div>
+                <div class="bar-row"><span>Defense</span><div class="bar-track"><div class="bar-fill" style="--val:100%"></div></div></div>
+                <div class="bar-row"><span>Versatility</span><div class="bar-track"><div class="bar-fill" style="--val:80%"></div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alien-slide" data-alien="xlr8" data-color="#00ccff">
+            <div class="alien-slide-visual">
+              <img src="/assets/images/xlr8.png" alt="XLR8" class="alien-slide-img" />
+              <div class="alien-slide-glow" style="--alien-color: #00ccff"></div>
+            </div>
+            <div class="alien-slide-info">
+              <span class="alien-num">04</span>
+              <h3>XLR8</h3>
+              <p class="alien-species">Kineceleran from Kinet</p>
+              <p class="alien-story">Moving at speeds over 500 mph, XLR8 is a blur that leaves afterimages. His speed creates vacuum effects, and his reflexes let him dodge anything — even laser fire.</p>
+              <div class="alien-bars">
+                <div class="bar-row"><span>Speed</span><div class="bar-track"><div class="bar-fill" style="--val:100%"></div></div></div>
+                <div class="bar-row"><span>Reflexes</span><div class="bar-track"><div class="bar-fill" style="--val:95%"></div></div></div>
+                <div class="bar-row"><span>Power</span><div class="bar-track"><div class="bar-fill" style="--val:50%"></div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alien-slide" data-alien="greymatter" data-color="#88cc88">
+            <div class="alien-slide-visual">
+              <img src="/assets/images/greymatter.png" alt="Grey Matter" class="alien-slide-img" />
+              <div class="alien-slide-glow" style="--alien-color: #88cc88"></div>
+            </div>
+            <div class="alien-slide-info">
+              <span class="alien-num">05</span>
+              <h3>Grey Matter</h3>
+              <p class="alien-species">Galvan from Galvan Prime</p>
+              <p class="alien-story">Only 5 inches tall, but with the most powerful mind in the galaxy. Grey Matter can understand and repair any technology, hack alien systems, and outsmart enemies a thousand times his size.</p>
+              <div class="alien-bars">
+                <div class="bar-row"><span>Intelligence</span><div class="bar-track"><div class="bar-fill" style="--val:100%"></div></div></div>
+                <div class="bar-row"><span>Stealth</span><div class="bar-track"><div class="bar-fill" style="--val:90%"></div></div></div>
+                <div class="bar-row"><span>Power</span><div class="bar-track"><div class="bar-fill" style="--val:10%"></div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alien-slide" data-alien="fourarms" data-color="#cc0000">
+            <div class="alien-slide-visual">
+              <img src="/assets/images/fourarms.png" alt="Four Arms" class="alien-slide-img" />
+              <div class="alien-slide-glow" style="--alien-color: #cc0000"></div>
+            </div>
+            <div class="alien-slide-info">
+              <span class="alien-num">06</span>
+              <h3>Four Arms</h3>
+              <p class="alien-species">Tetramand from Khoros</p>
+              <p class="alien-story">When brute force is the answer, Four Arms is the question. Standing 12 feet tall with four massive arms, he can create shockwaves with a single clap and lift objects weighing tons.</p>
+              <div class="alien-bars">
+                <div class="bar-row"><span>Power</span><div class="bar-track"><div class="bar-fill" style="--val:100%"></div></div></div>
+                <div class="bar-row"><span>Defense</span><div class="bar-track"><div class="bar-fill" style="--val:90%"></div></div></div>
+                <div class="bar-row"><span>Speed</span><div class="bar-track"><div class="bar-fill" style="--val:45%"></div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alien-slide" data-alien="stinkfly" data-color="#66aa22">
+            <div class="alien-slide-visual">
+              <img src="/assets/images/stinkfly.png" alt="Stinkfly" class="alien-slide-img" />
+              <div class="alien-slide-glow" style="--alien-color: #66aa22"></div>
+            </div>
+            <div class="alien-slide-info">
+              <span class="alien-num">07</span>
+              <h3>Stinkfly</h3>
+              <p class="alien-species">Lepidopterran from Lepidopterra</p>
+              <p class="alien-story">An insectoid flyer with four wings capable of incredible aerial maneuvers. Stinkfly shoots sticky slime and toxic gas from his eyes and tail, perfect for disabling enemies from above.</p>
+              <div class="alien-bars">
+                <div class="bar-row"><span>Flight</span><div class="bar-track"><div class="bar-fill" style="--val:95%"></div></div></div>
+                <div class="bar-row"><span>Range</span><div class="bar-track"><div class="bar-fill" style="--val:80%"></div></div></div>
+                <div class="bar-row"><span>Power</span><div class="bar-track"><div class="bar-fill" style="--val:55%"></div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alien-slide" data-alien="ripjaws" data-color="#4488ff">
+            <div class="alien-slide-visual">
+              <img src="/assets/images/ripjaws.png" alt="Ripjaws" class="alien-slide-img" />
+              <div class="alien-slide-glow" style="--alien-color: #4488ff"></div>
+            </div>
+            <div class="alien-slide-info">
+              <span class="alien-num">08</span>
+              <h3>Ripjaws</h3>
+              <p class="alien-species">Piscciss Volann from Piscciss</p>
+              <p class="alien-story">Master of the deep, Ripjaws can breathe underwater, swim at terrifying speeds, and bite through steel. His jaws exert thousands of pounds of pressure — nothing escapes his grip.</p>
+              <div class="alien-bars">
+                <div class="bar-row"><span>Aquatic</span><div class="bar-track"><div class="bar-fill" style="--val:100%"></div></div></div>
+                <div class="bar-row"><span>Power</span><div class="bar-track"><div class="bar-fill" style="--val:70%"></div></div></div>
+                <div class="bar-row"><span>Speed</span><div class="bar-track"><div class="bar-fill" style="--val:60%"></div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alien-slide" data-alien="upgrade" data-color="#9966ff">
+            <div class="alien-slide-visual">
+              <img src="/assets/images/upgrade.png" alt="Upgrade" class="alien-slide-img" />
+              <div class="alien-slide-glow" style="--alien-color: #9966ff"></div>
+            </div>
+            <div class="alien-slide-info">
+              <span class="alien-num">09</span>
+              <h3>Upgrade</h3>
+              <p class="alien-species">Galvanic Mechamorph from Galvan B</p>
+              <p class="alien-story">A living machine made of liquid metal nanotechnology. Upgrade can merge with any technology, enhancing it far beyond its original capabilities — turning a bicycle into a rocket.</p>
+              <div class="alien-bars">
+                <div class="bar-row"><span>Tech</span><div class="bar-track"><div class="bar-fill" style="--val:100%"></div></div></div>
+                <div class="bar-row"><span>Adapt</span><div class="bar-track"><div class="bar-fill" style="--val:95%"></div></div></div>
+                <div class="bar-row"><span>Power</span><div class="bar-track"><div class="bar-fill" style="--val:55%"></div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alien-slide" data-alien="ghostfreak" data-color="#bb88ff">
+            <div class="alien-slide-visual">
+              <img src="/assets/images/ghostfreak.png" alt="Ghostfreak" class="alien-slide-img" />
+              <div class="alien-slide-glow" style="--alien-color: #bb88ff"></div>
+            </div>
+            <div class="alien-slide-info">
+              <span class="alien-num">10</span>
+              <h3>Ghostfreak</h3>
+              <p class="alien-species">Ectonurite from Anur Phaetos</p>
+              <p class="alien-story">Invisible, intangible, terrifying. Ghostfreak can phase through walls, possess living beings, and project beams of darkness. But this alien held a secret that would haunt Ben...</p>
+              <div class="alien-bars">
+                <div class="bar-row"><span>Stealth</span><div class="bar-track"><div class="bar-fill" style="--val:100%"></div></div></div>
+                <div class="bar-row"><span>Fear</span><div class="bar-track"><div class="bar-fill" style="--val:90%"></div></div></div>
+                <div class="bar-row"><span>Power</span><div class="bar-track"><div class="bar-fill" style="--val:60%"></div></div></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div id="villain-grid" class="villain-grid"></div>
       </section>
 
-      <section id="selection" class="panel panel-selection">
-        <header class="selection-header">
-          <div class="section-label success">Interactive Mode</div>
-          <h2>Choose Your <span class="highlight">Hero</span></h2>
-          <p>Select an alien to trigger a full transformation sequence.</p>
-        </header>
-        <div class="selection-grid">
-          <button class="alien-card" data-alien="Heatblast">
-            <img src="/assets/images/heatblast.png" alt="Heatblast" class="card-image" />
-            <span class="card-name">Heatblast</span>
-            <div class="card-ring"></div>
-          </button>
-          <button class="alien-card" data-alien="Four Arms">
-            <img src="/assets/images/fourarms.png" alt="Four Arms" class="card-image" />
-            <span class="card-name">Four Arms</span>
-            <div class="card-ring"></div>
-          </button>
-          <button class="alien-card" data-alien="XLR8">
-            <img src="/assets/images/xlr8.png" alt="XLR8" class="card-image" />
-            <span class="card-name">XLR8</span>
-            <div class="card-ring"></div>
-          </button>
-          <button class="alien-card" data-alien="Upgrade">
-            <img src="/assets/images/upgrade.png" alt="Upgrade" class="card-image" />
-            <span class="card-name">Upgrade</span>
-            <div class="card-ring"></div>
-          </button>
-          <button class="alien-card" data-alien="Ripjaws">
-            <img src="/assets/images/ripjaws.png" alt="Ripjaws" class="card-image" />
-            <span class="card-name">Ripjaws</span>
-            <div class="card-ring"></div>
-          </button>
-          <button class="alien-card" data-alien="Ghostfreak">
-            <img src="/assets/images/ghostfreak.png" alt="Ghostfreak" class="card-image" />
-            <span class="card-name">Ghostfreak</span>
-            <div class="card-ring"></div>
-          </button>
+      <!-- ═══════════════════════════════════════ -->
+      <!-- CHAPTER 3: GRANDPA MAX'S SECRET         -->
+      <!-- ═══════════════════════════════════════ -->
+      <section id="plumbers" class="chapter" data-chapter="3" data-theme="plumbers">
+        <div class="chapter-bg plumbers-bg">
+          <div class="plumber-grid-lines" aria-hidden="true"></div>
         </div>
-        <aside id="selection-detail" class="selection-detail">
-          <div class="detail-icon">⚡</div>
-          <h3>Standby Mode</h3>
-          <p>Hover or tap an alien to preview transformation profile.</p>
-          <div class="detail-stats"></div>
-        </aside>
+        <div class="chapter-inner plumbers-layout">
+          <div class="story-text plumbers-text">
+            <div class="chapter-tag">Chapter Three</div>
+            <h2>Grandpa Max's <span class="highlight-blue">Secret</span></h2>
+            <div class="story-narration">
+              <p class="narration-line">Ben always thought Grandpa Max was just... a grandpa.</p>
+              <p class="narration-line">Sure, he cooked weird food. Sure, the Rustbucket had suspicious modifications. Sure, he knew an awful lot about aliens.</p>
+              <p class="narration-line">But the truth was bigger than Ben imagined.</p>
+              <p class="narration-line">Max Tennyson was a <strong>Plumber</strong> — a member of an intergalactic peacekeeping organization that had been protecting Earth from alien threats for decades.</p>
+              <p class="narration-line">He had traveled the stars. Fought wars across galaxies. And he had retired... until the Omnitrix chose his grandson.</p>
+              <p class="narration-line">Now, with enemies old and new emerging, Max came out of retirement to guide Ben through a universe far more dangerous than any 10-year-old could imagine.</p>
+            </div>
+          </div>
+          <div class="plumbers-visual">
+            <div class="classified-stamp" aria-hidden="true">CLASSIFIED</div>
+            <div class="plumber-badge" aria-hidden="true">
+              <div class="badge-ring"></div>
+              <div class="badge-center"></div>
+              <div class="badge-icon">★</div>
+            </div>
+            <div class="dossier-lines">
+              <div class="dossier-line"><span class="redacted">Agent:</span> <span class="reveal-text">Max Tennyson</span></div>
+              <div class="dossier-line"><span class="redacted">Rank:</span> <span class="reveal-text">Magister (Retired)</span></div>
+              <div class="dossier-line"><span class="redacted">Status:</span> <span class="reveal-text">Reactivated</span></div>
+              <div class="dossier-line"><span class="redacted">Mission:</span> <span class="reveal-text">Protect Omnitrix Bearer</span></div>
+            </div>
+          </div>
+        </div>
       </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- CHAPTER 4: THE VILLAINS RISE            -->
+      <!-- ═══════════════════════════════════════ -->
+      <section id="villains" class="chapter" data-chapter="4" data-theme="villains">
+        <div class="chapter-bg villains-bg">
+          <div class="villain-parallax-a" data-depth="0.2"></div>
+          <div class="villain-parallax-b" data-depth="0.5"></div>
+          <div class="villain-parallax-c" data-depth="0.8"></div>
+        </div>
+        <div class="chapter-inner villains-content">
+          <div class="chapter-tag danger">Chapter Four</div>
+          <h2>The Villains <span class="highlight-red">Rise</span></h2>
+          <p class="villains-intro">Every hero needs adversaries. Ben found no shortage of enemies — from power-hungry warlords to twisted mutations of his own DNA.</p>
+          <div class="villain-showcase" id="villain-showcase"></div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- CHAPTER 5: GHOSTFREAK'S ESCAPE          -->
+      <!-- ═══════════════════════════════════════ -->
+      <section id="ghostfreak-chapter" class="chapter" data-chapter="5" data-theme="ghostfreak">
+        <div class="chapter-bg ghostfreak-bg"></div>
+        <div class="chapter-inner ghostfreak-layout">
+          <div class="ghostfreak-visual">
+            <img src="/assets/images/ghostfreak.png" alt="Ghostfreak / Zs'Skayr" class="ghostfreak-img" />
+            <div class="ghostfreak-tendrils" aria-hidden="true"></div>
+            <div class="ghostfreak-glow-ring" aria-hidden="true"></div>
+          </div>
+          <div class="story-text ghostfreak-text">
+            <div class="chapter-tag ghost">Chapter Five</div>
+            <h2>Ghostfreak's <span class="highlight-purple">Escape</span></h2>
+            <div class="story-narration">
+              <p class="narration-line">Something was wrong with the Ghostfreak transformation.</p>
+              <p class="narration-line">Every time Ben used it, he felt a presence — a consciousness that wasn't his own, pushing against the boundaries of the Omnitrix.</p>
+              <p class="narration-line">The entity's name was <strong>Zs'Skayr</strong> — an Ectonurite high lord whose DNA had been trapped inside the watch. Unlike the other aliens, Zs'Skayr was <em>aware</em>.</p>
+              <p class="narration-line">And one day, he broke free.</p>
+              <p class="narration-line">Tearing himself out of the Omnitrix, Zs'Skayr became an independent villain — a ghost that could possess bodies, turn invisible, and spread darkness wherever he went.</p>
+              <p class="narration-line">For Ben, it was personal. This creature had been inside him. It knew his fears, his weaknesses. And now, it wanted revenge.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- CHAPTER 6: THE FINAL BATTLE             -->
+      <!-- ═══════════════════════════════════════ -->
+      <section id="climax" class="chapter" data-chapter="6" data-theme="climax">
+        <div class="chapter-bg climax-bg"></div>
+        <div class="chapter-inner climax-layout">
+          <div class="climax-split">
+            <div class="climax-hero-side">
+              <img src="/assets/images/ben-tennyson.png" alt="Ben Tennyson" class="climax-hero-img" />
+              <div class="climax-hero-glow"></div>
+            </div>
+            <div class="climax-vs">VS</div>
+            <div class="climax-villain-side">
+              <img src="/assets/images/villlgax.png" alt="Vilgax" class="climax-villain-img" />
+              <div class="climax-villain-glow"></div>
+            </div>
+          </div>
+          <div class="story-text climax-text">
+            <div class="chapter-tag danger">Chapter Six</div>
+            <h2>The Final <span class="highlight-red">Battle</span></h2>
+            <div class="story-narration">
+              <p class="narration-line">Everything had been building to this.</p>
+              <p class="narration-line"><strong>Vilgax</strong> — the intergalactic conqueror who had been hunting the Omnitrix from the very beginning — finally arrived on Earth at full power.</p>
+              <p class="narration-line">He came with an army. An armada of drones. Technology that could level cities.</p>
+              <p class="narration-line">But Ben wasn't the same scared kid who had stumbled onto the Omnitrix at the start of summer.</p>
+              <p class="narration-line">He had mastered his transformations. Learned from Grandpa Max. Found strength he never knew he had.</p>
+              <p class="narration-line">And in the final clash, it wasn't just one alien that defeated Vilgax — it was all of them. Ben cycled through every form, using each alien's strengths in perfect sequence.</p>
+              <p class="narration-line">The Omnitrix didn't just choose randomly. It chose <em>Ben Tennyson</em>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- CHAPTER 7: LEGACY                       -->
+      <!-- ═══════════════════════════════════════ -->
+      <section id="legacy" class="chapter" data-chapter="7" data-theme="legacy">
+        <div class="chapter-bg legacy-bg"></div>
+        <div class="chapter-inner legacy-layout">
+          <div class="chapter-tag">Epilogue</div>
+          <h2>The <span class="highlight">Legacy</span></h2>
+          <p class="legacy-quote">"The summer ended. The hero didn't."</p>
+
+          <div class="timeline" id="timeline">
+            <div class="timeline-line"></div>
+            <div class="timeline-node" data-year="Day 1">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <h4>The Omnitrix Falls</h4>
+                <p>A mysterious device crashes near a campsite and bonds with Ben Tennyson.</p>
+              </div>
+            </div>
+            <div class="timeline-node" data-year="Week 2">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <h4>First Transformations</h4>
+                <p>Ben discovers Heatblast, Wildmutt, and the other original 10 aliens.</p>
+              </div>
+            </div>
+            <div class="timeline-node" data-year="Month 1">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <h4>Plumber Revelation</h4>
+                <p>Grandpa Max's secret past as an intergalactic agent is revealed.</p>
+              </div>
+            </div>
+            <div class="timeline-node" data-year="Month 2">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <h4>Villains Emerge</h4>
+                <p>Vilgax sends bounty hunters. Kevin 11 appears. The battles intensify.</p>
+              </div>
+            </div>
+            <div class="timeline-node" data-year="Month 3">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <h4>Ghostfreak's Escape</h4>
+                <p>Zs'Skayr breaks free from the Omnitrix, becoming Ben's most personal enemy.</p>
+              </div>
+            </div>
+            <div class="timeline-node" data-year="Summer's End">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <h4>The Final Stand</h4>
+                <p>Ben defeats Vilgax and earns his place as Earth's protector.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="legacy-selection">
+            <h3>Explore the <span class="highlight">Omnitrix</span></h3>
+            <p class="legacy-selection-subtitle">Select an alien to view their profile.</p>
+            <div class="legacy-grid" id="legacy-grid"></div>
+            <div class="legacy-detail" id="legacy-detail">
+              <div class="detail-icon">⚡</div>
+              <h4>Standby Mode</h4>
+              <p>Click an alien above to see their transformation profile.</p>
+              <div class="detail-stats"></div>
+            </div>
+          </div>
+
+          <footer class="site-footer">
+            <p>A fan-made tribute to <strong>Ben 10</strong> (2005–2008) created by Man of Action.</p>
+            <p class="footer-sub">Built with Three.js, GSAP, and love for the original series.</p>
+          </footer>
+        </div>
+      </section>
+
     </main>
 
     <script type="module" src="/main.js"></script>
