@@ -1,10 +1,10 @@
 const SILHOUETTE_IMAGES = {
-  "Heatblast": "/assets/images/heatblast.svg",
-  "Four Arms": "/assets/images/fourarms.svg",
-  "XLR8": "/assets/images/xlr8.svg",
-  "Diamondhead": "/assets/images/diamondhead.svg",
-  "Upgrade": "/assets/images/upgrade.svg",
-  "Ghostfreak": "/assets/images/ghostfreak.svg"
+  "Heatblast": "/assets/images/heatblast.png",
+  "Four Arms": "/assets/images/fourarms.png",
+  "XLR8": "/assets/images/xlr8.png",
+  "Diamondhead": "/assets/images/diamondhead.png",
+  "Upgrade": "/assets/images/upgrade.png",
+  "Ghostfreak": "/assets/images/ghostfreak.png"
 };
 
 export function buildSilhouettes(root) {
