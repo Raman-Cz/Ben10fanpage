@@ -83,6 +83,7 @@
         <article class="alien-panel heatblast" data-alien="Heatblast">
           <div class="alien-image-wrapper">
             <img src="/assets/images/heatblast.png" alt="Heatblast" class="alien-image" />
+            <img src="/assets/images/heatblast2.png" alt="Heatblast Alt" class="alien-image secondary" />
             <div class="alien-glow heatblast-glow"></div>
           </div>
           <div class="alien-content">
@@ -102,6 +103,7 @@
         <article class="alien-panel fourarms" data-alien="Four Arms">
           <div class="alien-image-wrapper">
             <img src="/assets/images/fourarms.png" alt="Four Arms" class="alien-image" />
+            <img src="/assets/images/fourarms2.png" alt="Four Arms Alt" class="alien-image secondary" />
             <div class="alien-glow fourarms-glow"></div>
           </div>
           <div class="alien-content">
@@ -121,6 +123,7 @@
         <article class="alien-panel xlr8" data-alien="XLR8">
           <div class="alien-image-wrapper">
             <img src="/assets/images/xlr8.png" alt="XLR8" class="alien-image" />
+            <img src="/assets/images/xlr82.png" alt="XLR8 Alt" class="alien-image secondary" />
             <div class="alien-glow xlr8-glow"></div>
           </div>
           <div class="alien-content">
@@ -137,23 +140,44 @@
           <canvas class="speed-canvas" aria-hidden="true"></canvas>
         </article>
 
-        <article class="alien-panel diamondhead" data-alien="Diamondhead">
+        <article class="alien-panel upgrade" data-alien="Upgrade">
           <div class="alien-image-wrapper">
-            <img src="/assets/images/diamondhead.png" alt="Diamondhead" class="alien-image" />
-            <div class="alien-glow diamondhead-glow"></div>
+            <img src="/assets/images/upgrade.png" alt="Upgrade" class="alien-image" />
+            <img src="/assets/images/upgrade2.png" alt="Upgrade Alt" class="alien-image secondary" />
+            <div class="alien-glow upgrade-glow"></div>
           </div>
           <div class="alien-content">
             <div class="alien-number">04</div>
-            <h3>Diamondhead</h3>
-            <p class="alien-subtitle">Crystal | Defense</p>
-            <p>The Petrosapien gem. Diamondhead's crystalline body refracts light into deadly shards and deflects attacks with prismatic armor.</p>
+            <h3>Upgrade</h3>
+            <p class="alien-subtitle">Technology | Adaptation</p>
+            <p>The Galvanic Mechamorph. Upgrade can scan and merge with any technology, upgrading it beyond its original design.</p>
             <div class="alien-stats">
-              <div class="alien-stat"><span>Power</span><div class="stat-bar" style="--value: 75%"></div></div>
-              <div class="alien-stat"><span>Speed</span><div class="stat-bar" style="--value: 60%"></div></div>
-              <div class="alien-stat"><span>Defense</span><div class="stat-bar" style="--value: 100%"></div></div>
+              <div class="alien-stat"><span>Power</span><div class="stat-bar" style="--value: 55%"></div></div>
+              <div class="alien-stat"><span>Speed</span><div class="stat-bar" style="--value: 70%"></div></div>
+              <div class="alien-stat"><span>Adaptation</span><div class="stat-bar" style="--value: 100%"></div></div>
             </div>
           </div>
-          <canvas class="crystal-canvas" aria-hidden="true"></canvas>
+          <canvas class="upgrade-canvas" aria-hidden="true"></canvas>
+        </article>
+
+        <article class="alien-panel ripjaws" data-alien="Ripjaws">
+          <div class="alien-image-wrapper">
+            <img src="/assets/images/ripjaws.png" alt="Ripjaws" class="alien-image" />
+            <img src="/assets/images/ripjaws2.png" alt="Ripjaws Alt" class="alien-image secondary" />
+            <div class="alien-glow ripjaws-glow"></div>
+          </div>
+          <div class="alien-content">
+            <div class="alien-number">05</div>
+            <h3>Ripjaws</h3>
+            <p class="alien-subtitle">Aquatic | Combat</p>
+            <p>The Piscciss Volann predator. Ripjaws dominates both land and sea with powerful jaws and aquatic capabilities.</p>
+            <div class="alien-stats">
+              <div class="alien-stat"><span>Power</span><div class="stat-bar" style="--value: 70%"></div></div>
+              <div class="alien-stat"><span>Speed</span><div class="stat-bar" style="--value: 60%"></div></div>
+              <div class="alien-stat"><span>Aquatic</span><div class="stat-bar" style="--value: 100%"></div></div>
+            </div>
+          </div>
+          <canvas class="ripjaws-canvas" aria-hidden="true"></canvas>
         </article>
       </section>
 
@@ -165,7 +189,7 @@
         </div>
         <div class="section-header">
           <div class="section-label danger">The Opposition</div>
-          <h2>Facing the <span class="highlight">Villains</span></h2>
+          <h2>Facing the <span class="highlight">Villain</span></h2>
         </div>
         <div id="villain-grid" class="villain-grid"></div>
       </section>
@@ -192,14 +216,14 @@
             <span class="card-name">XLR8</span>
             <div class="card-ring"></div>
           </button>
-          <button class="alien-card" data-alien="Diamondhead">
-            <img src="/assets/images/diamondhead.png" alt="Diamondhead" class="card-image" />
-            <span class="card-name">Diamondhead</span>
-            <div class="card-ring"></div>
-          </button>
           <button class="alien-card" data-alien="Upgrade">
             <img src="/assets/images/upgrade.png" alt="Upgrade" class="card-image" />
             <span class="card-name">Upgrade</span>
+            <div class="card-ring"></div>
+          </button>
+          <button class="alien-card" data-alien="Ripjaws">
+            <img src="/assets/images/ripjaws.png" alt="Ripjaws" class="card-image" />
+            <span class="card-name">Ripjaws</span>
             <div class="card-ring"></div>
           </button>
           <button class="alien-card" data-alien="Ghostfreak">

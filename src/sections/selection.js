@@ -4,8 +4,8 @@ const DETAILS = {
   Heatblast: { species: "Pyronite", stats: "Power: 95 | Speed: 75 | Defense: 60", desc: "Living inferno from Pyros" },
   "Four Arms": { species: "Tetramand", stats: "Power: 100 | Speed: 45 | Defense: 90", desc: "Four-armed bruiser" },
   XLR8: { species: "Kineceleran", stats: "Power: 50 | Speed: 100 | Defense: 55", desc: "Speed demon" },
-  Diamondhead: { species: "Petrosapien", stats: "Power: 75 | Speed: 60 | Defense: 100", desc: "Crystalline warrior" },
   Upgrade: { species: "Galvanic Mechamorph", stats: "Power: 55 | Speed: 70 | Adaptation: 100", desc: "Technological entity" },
+  Ripjaws: { species: "Piscciss Volann", stats: "Power: 70 | Speed: 60 | Aquatic: 100", desc: "Aquatic predator" },
   Ghostfreak: { species: "Ectonurite", stats: "Power: 60 | Speed: 65 | Stealth: 100", desc: "Ghostly infiltrator" }
 };
 

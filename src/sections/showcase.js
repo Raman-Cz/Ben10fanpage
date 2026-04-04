@@ -2,19 +2,22 @@ import { gsap, ScrollTrigger } from "../core/scroll.js";
 import { attachFireCanvas } from "../effects/fire.js";
 import { attachSpeedLines } from "../effects/speed.js";
 import { attachImpactRing } from "../effects/impact.js";
-import { attachCrystalEffect } from "../effects/crystal.js";
+import { attachUpgradeEffect } from "../effects/upgrade.js";
+import { attachRipjawsEffect } from "../effects/ripjaws.js";
 
 export function initShowcaseSection(sceneContext) {
   const panels = document.querySelectorAll(".alien-panel");
   const heatblast = document.querySelector(".alien-panel.heatblast");
   const fourarms = document.querySelector(".alien-panel.fourarms");
   const xlr8 = document.querySelector(".alien-panel.xlr8");
-  const diamondhead = document.querySelector(".alien-panel.diamondhead");
+  const upgrade = document.querySelector(".alien-panel.upgrade");
+  const ripjaws = document.querySelector(".alien-panel.ripjaws");
 
   if (heatblast) attachFireCanvas(heatblast);
   if (xlr8) attachSpeedLines(xlr8);
   if (fourarms) attachImpactRing(fourarms);
-  if (diamondhead) attachCrystalEffect(diamondhead);
+  if (upgrade) attachUpgradeEffect(upgrade);
+  if (ripjaws) attachRipjawsEffect(ripjaws);
 
   panels.forEach((panel, i) => {
     const imageWrapper = panel.querySelector(".alien-image-wrapper");
