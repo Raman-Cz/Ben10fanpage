@@ -13,21 +13,21 @@ const VILLAINS = [
     summary:
       "A troubled 11-year-old with the power to absorb energy. Kevin was the first person Ben tried to befriend after getting the Omnitrix — but Kevin's ambition turned him into a rival. After absorbing the Omnitrix's energy, he mutated into a grotesque fusion of all 10 aliens.",
     icon: "⚡",
-    image: null,
+    image: "/assets/images/kevin11.png",
   },
   {
     name: "Dr. Animo",
     summary:
       "A mad scientist consumed by bitterness after being denied a prestigious award. Dr. Animo uses a Transmodulator device to mutate animals into monstrous creatures, seeking to reshape evolution itself to prove his brilliance.",
     icon: "🧬",
-    image: null,
+    image: "/assets/images/dranimo.png",
   },
   {
     name: "Hex",
     summary:
       "An ancient sorcerer wielding the five Charms of Bezel — artifacts of immense mystical power. Hex commands dark magic that even the Omnitrix cannot fully counter, making him one of Ben's most unpredictable foes.",
     icon: "🔮",
-    image: null,
+    image: "/assets/images/hex.png",
   },
 ];
 
@@ -72,23 +72,23 @@ export function initVillainsChapter(sceneContext) {
     });
   }
 
-  // Header animations
+  // Header animations (scrubbed)
   gsap.fromTo(tag, { opacity: 0, y: 20 }, {
-    opacity: 1, y: 0, duration: 0.6, ease: "power2.out",
-    scrollTrigger: { trigger: section, start: "top 75%", toggleActions: "play none none reverse" },
+    opacity: 1, y: 0, duration: 0.6, ease: "none",
+    scrollTrigger: { trigger: section, start: "top 80%", end: "top 55%", scrub: 1 },
   });
 
-  gsap.fromTo(heading, { opacity: 0, y: 30 }, {
-    opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
-    scrollTrigger: { trigger: section, start: "top 70%", toggleActions: "play none none reverse" },
+  gsap.fromTo(heading, { opacity: 0, filter: "blur(4px)" }, {
+    opacity: 1, filter: "blur(0px)", duration: 0.8, ease: "none",
+    scrollTrigger: { trigger: section, start: "top 75%", end: "top 45%", scrub: 1 },
   });
 
-  gsap.fromTo(intro, { opacity: 0, y: 20 }, {
-    opacity: 1, y: 0, duration: 0.6, ease: "power2.out",
-    scrollTrigger: { trigger: section, start: "top 65%", toggleActions: "play none none reverse" },
+  gsap.fromTo(intro, { opacity: 0, y: 15 }, {
+    opacity: 1, y: 0, duration: 0.6, ease: "none",
+    scrollTrigger: { trigger: section, start: "top 70%", end: "top 40%", scrub: 1 },
   });
 
-  // Villain cards stagger entrance
+  // Villain cards stagger entrance (scrubbed)
   setTimeout(() => {
     const cards = section.querySelectorAll(".villain-card");
     gsap.fromTo(
@@ -100,11 +100,12 @@ export function initVillainsChapter(sceneContext) {
         scale: 1,
         duration: 0.7,
         stagger: { each: 0.15, from: "start" },
-        ease: "power3.out",
+        ease: "none",
         scrollTrigger: {
           trigger: showcase,
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          end: "top 50%",
+          scrub: 1,
         },
       }
     );

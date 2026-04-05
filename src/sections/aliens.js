@@ -8,25 +8,25 @@ export function initAliens(sceneContext) {
 
   if (!section || !carousel || slides.length === 0) return;
 
-  // Header entrance
+  // Header entrance (scrubbed)
   if (headerArea) {
     const tag = headerArea.querySelector(".chapter-tag");
     const h2 = headerArea.querySelector("h2");
     const intro = headerArea.querySelector(".aliens-intro");
 
     gsap.fromTo(tag, { opacity: 0, y: 20 }, {
-      opacity: 1, y: 0, duration: 0.6, ease: "power2.out",
-      scrollTrigger: { trigger: headerArea, start: "top 80%", toggleActions: "play none none reverse" },
+      opacity: 1, y: 0, duration: 0.6, ease: "none",
+      scrollTrigger: { trigger: headerArea, start: "top 80%", end: "top 55%", scrub: 1 },
     });
 
-    gsap.fromTo(h2, { opacity: 0, y: 30 }, {
-      opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
-      scrollTrigger: { trigger: headerArea, start: "top 75%", toggleActions: "play none none reverse" },
+    gsap.fromTo(h2, { opacity: 0, filter: "blur(4px)" }, {
+      opacity: 1, filter: "blur(0px)", duration: 0.8, ease: "none",
+      scrollTrigger: { trigger: headerArea, start: "top 75%", end: "top 45%", scrub: 1 },
     });
 
-    gsap.fromTo(intro, { opacity: 0, y: 20 }, {
-      opacity: 1, y: 0, duration: 0.6, ease: "power2.out",
-      scrollTrigger: { trigger: headerArea, start: "top 70%", toggleActions: "play none none reverse" },
+    gsap.fromTo(intro, { opacity: 0, y: 15 }, {
+      opacity: 1, y: 0, duration: 0.6, ease: "none",
+      scrollTrigger: { trigger: headerArea, start: "top 70%", end: "top 40%", scrub: 1 },
     });
   }
 
@@ -73,6 +73,24 @@ export function initAliens(sceneContext) {
       onLeave: () => animateSlideOut(img, info),
       onLeaveBack: () => animateSlideOut(img, info),
     });
+
+    // Image parallax within slide
+    if (img) {
+      gsap.fromTo(img, 
+        { x: -20 },
+        {
+          x: 20,
+          ease: "none",
+          scrollTrigger: {
+            trigger: slide,
+            containerAnimation: scrollTween,
+            start: "left 90%",
+            end: "left 10%",
+            scrub: 1,
+          }
+        }
+      );
+    }
   });
 
   // Camera drifts subtly during alien carousel
@@ -116,7 +134,8 @@ function animateSlideIn(slide, img, info, bars, h3, species, story) {
     }, 0.35);
   }
 
-  bars.forEach((bar, i) => {
+  // Stat bars fill on slide entrance
+  bars.forEach((bar) => {
     bar.classList.add("animated");
   });
 }

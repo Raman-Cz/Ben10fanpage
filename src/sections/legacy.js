@@ -21,26 +21,44 @@ export function initLegacy() {
   const heading = section.querySelector("h2");
   const quote = section.querySelector(".legacy-quote");
   const nodes = section.querySelectorAll(".timeline-node");
+  const timelineLine = section.querySelector(".timeline-line");
   const grid = document.querySelector("#legacy-grid");
   const detail = document.querySelector("#legacy-detail");
 
-  // Header entrance
+  // Header entrance (scrubbed)
   gsap.fromTo(tag, { opacity: 0, y: 20 }, {
-    opacity: 1, y: 0, duration: 0.6, ease: "power2.out",
-    scrollTrigger: { trigger: section, start: "top 75%", toggleActions: "play none none reverse" },
+    opacity: 1, y: 0, duration: 0.6, ease: "none",
+    scrollTrigger: { trigger: section, start: "top 80%", end: "top 55%", scrub: 1 },
   });
 
-  gsap.fromTo(heading, { opacity: 0, y: 30 }, {
-    opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
-    scrollTrigger: { trigger: section, start: "top 70%", toggleActions: "play none none reverse" },
+  gsap.fromTo(heading, { opacity: 0, filter: "blur(4px)" }, {
+    opacity: 1, filter: "blur(0px)", duration: 0.8, ease: "none",
+    scrollTrigger: { trigger: section, start: "top 75%", end: "top 45%", scrub: 1 },
   });
 
   gsap.fromTo(quote, { opacity: 0, y: 15 }, {
-    opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
-    scrollTrigger: { trigger: section, start: "top 65%", toggleActions: "play none none reverse" },
+    opacity: 1, y: 0, duration: 0.8, ease: "none",
+    scrollTrigger: { trigger: section, start: "top 70%", end: "top 40%", scrub: 1 },
   });
 
-  // Timeline nodes stagger in
+  // Timeline line draws progressively
+  if (timelineLine) {
+    gsap.fromTo(timelineLine,
+      { scaleY: 0 },
+      {
+        scaleY: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#timeline",
+          start: "top 85%",
+          end: "bottom 80%",
+          scrub: 1,
+        },
+      }
+    );
+  }
+
+  // Timeline nodes stagger in (scrubbed)
   gsap.fromTo(
     nodes,
     { opacity: 0, x: 20 },
@@ -49,14 +67,36 @@ export function initLegacy() {
       x: 0,
       duration: 0.6,
       stagger: 0.15,
-      ease: "power2.out",
+      ease: "none",
       scrollTrigger: {
         trigger: "#timeline",
         start: "top 80%",
-        toggleActions: "play none none reverse",
+        end: "top 40%",
+        scrub: 1,
       },
     }
   );
+
+  // Timeline dots pulse as they enter
+  nodes.forEach((node) => {
+    const dot = node.querySelector(".timeline-dot");
+    if (dot) {
+      gsap.fromTo(dot,
+        { scale: 1 },
+        {
+          scale: 1.3,
+          duration: 0.4,
+          ease: "none",
+          scrollTrigger: {
+            trigger: node,
+            start: "top 85%",
+            end: "top 65%",
+            scrub: 1,
+          }
+        }
+      );
+    }
+  });
 
   // Build alien selection grid
   if (grid) {
@@ -131,17 +171,18 @@ export function initLegacy() {
     });
   }
 
-  // Selection grid entrance
+  // Selection grid entrance (scrubbed)
   gsap.from(".legacy-alien-btn", {
     opacity: 0,
     y: 30,
     duration: 0.5,
     stagger: 0.06,
-    ease: "power2.out",
+    ease: "none",
     scrollTrigger: {
       trigger: ".legacy-selection",
       start: "top 80%",
-      toggleActions: "play none none reverse",
+      end: "top 50%",
+      scrub: 1,
     },
   });
 }

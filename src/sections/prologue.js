@@ -19,16 +19,38 @@ export function initPrologue(sceneContext) {
   const badge = document.querySelector(".prologue-badge");
   const subtitle = document.querySelector(".prologue-subtitle");
   const stats = document.querySelector(".prologue-stats");
+  const hero = document.querySelector(".prologue-hero");
+  const visuals = document.querySelector(".prologue-visuals");
 
   if (!section || !title) return;
 
   const chars = splitChars(title);
 
-  // Entrance animations
+  // Entrance animations with scroll-back restoration
   gsap.fromTo(
     badge,
     { opacity: 0, y: 20 },
-    { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.3 }
+    {
+      opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.3,
+      scrollTrigger: {
+        trigger: section,
+        start: "top 90%",
+        toggleActions: "play none none reverse"
+      }
+    }
+  );
+
+  gsap.fromTo(
+    visuals,
+    { opacity: 0, x: -30, scale: 0.9 },
+    {
+      opacity: 1, x: 0, scale: 1, duration: 1, ease: "power3.out", delay: 0.4,
+      scrollTrigger: {
+        trigger: section,
+        start: "top 85%",
+        toggleActions: "play none none reverse"
+      }
+    }
   );
 
   gsap.fromTo(
@@ -40,33 +62,54 @@ export function initPrologue(sceneContext) {
       stagger: 0.025,
       duration: 0.5,
       ease: "back.out(1.5)",
-      delay: 0.6,
+      delay: 0.8,
+      scrollTrigger: {
+        trigger: section,
+        start: "top 80%",
+        toggleActions: "play none none reverse"
+      }
     }
   );
 
   gsap.fromTo(
     subtitle,
     { opacity: 0, y: 15 },
-    { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 1.4 }
+    {
+      opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 1.2,
+      scrollTrigger: {
+        trigger: section,
+        start: "top 75%",
+        toggleActions: "play none none reverse"
+      }
+    }
   );
 
   gsap.fromTo(
     stats,
     { opacity: 0, y: 15 },
-    { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 1.7 }
+    {
+      opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 1.5,
+      scrollTrigger: {
+        trigger: section,
+        start: "top 70%",
+        toggleActions: "play none none reverse"
+      }
+    }
   );
 
-  // Scroll-out timeline (scrubbed)
+  // Scroll-out timeline (scrubbed) - extended duration
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: section,
       start: "top top",
-      end: "+=120%",
+      end: "+=250%",
       scrub: 2,
       pin: true,
     },
   });
 
+  // Parallax: hero moves slower than text
+  tl.to(hero, { x: -80, opacity: 0.3, duration: 0.4 }, 0);
   tl.to(
     chars,
     { opacity: 0, y: -20, stagger: 0.008, duration: 0.3 },

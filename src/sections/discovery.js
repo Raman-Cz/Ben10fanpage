@@ -1,4 +1,5 @@
 import { gsap, ScrollTrigger } from "../core/scroll.js";
+import { splitHeadingWords } from "../utils/textSplit.js";
 
 export function initDiscovery(sceneContext) {
   const section = document.querySelector("#discovery");
@@ -10,73 +11,85 @@ export function initDiscovery(sceneContext) {
   const heading = section.querySelector("h2");
   const tag = section.querySelector(".chapter-tag");
 
-  // Scroll-triggered entrance for heading
+  // Split heading into words for word-level reveal
+  if (heading) {
+    splitHeadingWords(heading);
+  }
+
+  // Scroll-triggered entrance for heading (scrubbed)
   gsap.fromTo(
     tag,
     { opacity: 0, y: 20 },
     {
       opacity: 1, y: 0, duration: 0.6, ease: "power2.out",
-      scrollTrigger: { trigger: section, start: "top 75%", toggleActions: "play none none reverse" },
+      scrollTrigger: { trigger: section, start: "top 80%", end: "top 60%", scrub: 1 },
     }
   );
 
   gsap.fromTo(
     heading,
-    { opacity: 0, y: 30 },
+    { opacity: 0, filter: "blur(4px)" },
     {
-      opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
-      scrollTrigger: { trigger: section, start: "top 70%", toggleActions: "play none none reverse" },
+      opacity: 1, filter: "blur(0px)", duration: 0.8, ease: "none",
+      scrollTrigger: { trigger: section, start: "top 75%", end: "top 50%", scrub: 1 },
     }
   );
 
-  // Narration lines reveal one by one on scroll
+  // Narration lines reveal one by one on scroll (scrubbed)
   lines.forEach((line, i) => {
     gsap.fromTo(
       line,
-      { opacity: 0, y: 20 },
+      { opacity: 0, y: 25, filter: "blur(4px)" },
       {
         opacity: 1,
         y: 0,
+        filter: "blur(0px)",
         duration: 0.7,
-        ease: "power2.out",
+        ease: "none",
         scrollTrigger: {
           trigger: line,
-          start: "top 85%",
-          toggleActions: "play none none reverse",
+          start: "top 92%",
+          end: "top 65%",
+          scrub: 1,
         },
       }
     );
   });
 
-  // Hero image entrance
+  // Hero image entrance (scrubbed)
   if (imageWrap) {
     gsap.fromTo(
       imageWrap,
       { opacity: 0, scale: 0.85, x: 50 },
       {
-        opacity: 1, scale: 1, x: 0, duration: 1.2, ease: "power3.out",
-        scrollTrigger: { trigger: section, start: "top 65%", toggleActions: "play none none reverse" },
+        opacity: 1, scale: 1, x: 0, duration: 1.2, ease: "none",
+        scrollTrigger: { trigger: section, start: "top 65%", end: "top 35%", scrub: 1 },
       }
     );
+
+    // Hero image parallax during scroll
+    gsap.to(imageWrap, {
+      y: -30,
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1,
+      },
+    });
   }
 
-  // Meteor trail animation
+  // Meteor trail animation (scrubbed)
   if (meteor) {
     gsap.fromTo(
       meteor,
       { opacity: 0, y: -80 },
       {
-        opacity: 0.8, y: 60, duration: 1.5, ease: "power2.out",
-        scrollTrigger: { trigger: section, start: "top 60%", toggleActions: "play none none reverse" },
+        opacity: 0.8, y: 60, duration: 1.5, ease: "none",
+        scrollTrigger: { trigger: section, start: "top 60%", end: "top 30%", scrub: 1 },
       }
     );
-
-    gsap.to(meteor, {
-      opacity: 0,
-      duration: 0.8,
-      delay: 1.5,
-      scrollTrigger: { trigger: section, start: "top 50%", toggleActions: "play none none reverse" },
-    });
   }
 
   // Subtle camera parallax

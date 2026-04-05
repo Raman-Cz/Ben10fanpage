@@ -12,51 +12,73 @@ export function initClimax(sceneContext) {
   const villainImg = section.querySelector(".climax-villain-img");
   const vs = section.querySelector(".climax-vs");
 
-  // Tag + heading
+  // Tag + heading (scrubbed)
   gsap.fromTo(tag, { opacity: 0, y: 20 }, {
-    opacity: 1, y: 0, duration: 0.6, ease: "power2.out",
-    scrollTrigger: { trigger: section, start: "top 75%", toggleActions: "play none none reverse" },
+    opacity: 1, y: 0, duration: 0.6, ease: "none",
+    scrollTrigger: { trigger: section, start: "top 80%", end: "top 55%", scrub: 1 },
   });
 
-  gsap.fromTo(heading, { opacity: 0, y: 30 }, {
-    opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
-    scrollTrigger: { trigger: section, start: "top 70%", toggleActions: "play none none reverse" },
+  gsap.fromTo(heading, { opacity: 0, filter: "blur(4px)" }, {
+    opacity: 1, filter: "blur(0px)", duration: 0.8, ease: "none",
+    scrollTrigger: { trigger: section, start: "top 75%", end: "top 45%", scrub: 1 },
   });
 
-  // Split entrance — hero slides from left, villain from right
+  // Split entrance — hero slides from left, villain from right (scrubbed)
   if (heroImg) {
     gsap.fromTo(heroImg, { opacity: 0, x: -60, scale: 0.8 }, {
-      opacity: 1, x: 0, scale: 1, duration: 1, ease: "power3.out",
-      scrollTrigger: { trigger: split, start: "top 80%", toggleActions: "play none none reverse" },
+      opacity: 1, x: 0, scale: 1, duration: 1, ease: "none",
+      scrollTrigger: { trigger: split, start: "top 80%", end: "top 45%", scrub: 1 },
     });
   }
 
   if (villainImg) {
     gsap.fromTo(villainImg, { opacity: 0, x: 60, scale: 0.8 }, {
-      opacity: 1, x: 0, scale: 1, duration: 1, ease: "power3.out",
-      scrollTrigger: { trigger: split, start: "top 80%", toggleActions: "play none none reverse" },
+      opacity: 1, x: 0, scale: 1, duration: 1, ease: "none",
+      scrollTrigger: { trigger: split, start: "top 80%", end: "top 45%", scrub: 1 },
     });
   }
 
-  // VS text
+  // VS text (scrubbed)
   if (vs) {
     gsap.fromTo(vs, { opacity: 0, scale: 0 }, {
-      opacity: 0.4, scale: 1, duration: 0.6, ease: "back.out(2)",
-      scrollTrigger: { trigger: split, start: "top 75%", toggleActions: "play none none reverse" },
+      opacity: 0.4, scale: 1, duration: 0.6, ease: "none",
+      scrollTrigger: { trigger: split, start: "top 75%", end: "top 40%", scrub: 1 },
     });
   }
 
-  // Narration lines
+  // Narration lines (scrubbed)
   lines.forEach((line) => {
-    gsap.fromTo(line, { opacity: 0, y: 20 }, {
-      opacity: 1, y: 0, duration: 0.7, ease: "power2.out",
+    gsap.fromTo(line, { opacity: 0, y: 25, filter: "blur(4px)" }, {
+      opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, ease: "none",
       scrollTrigger: {
         trigger: line,
-        start: "top 85%",
-        toggleActions: "play none none reverse",
+        start: "top 92%",
+        end: "top 65%",
+        scrub: 1,
       },
     });
   });
+
+  // Energy clash pulsing at center
+  const clashZone = document.createElement("div");
+  clashZone.className = "energy-clash";
+  split?.appendChild(clashZone);
+  
+  gsap.fromTo(clashZone,
+    { opacity: 0, scale: 0.5 },
+    {
+      opacity: 0.6,
+      scale: 1.2,
+      duration: 0.8,
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        start: "top 40%",
+        end: "bottom 60%",
+        scrub: 1,
+      }
+    }
+  );
 
   // Flash at the climactic moment — triggered deep into scroll
   const flash = document.querySelector("#flash-overlay");
