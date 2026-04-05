@@ -6,7 +6,7 @@ import { createGlowComposer } from "../effects/glow.js";
 export function initScene() {
   const canvas = document.querySelector("#three-canvas");
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x010a04, 0.04);
+  scene.fog = new THREE.FogExp2(0x010502, 0.05);
 
   const camera = new THREE.PerspectiveCamera(
     45,
@@ -17,6 +17,18 @@ export function initScene() {
   camera.position.set(0, 0.3, 5.5);
   camera.lookAt(0, 0, 0);
 
+  // Cinematic Continuous Camera Path
+  const curvePoints = [
+    new THREE.Vector3(0, 0.3, 5.5),
+    new THREE.Vector3(0.15, 0.1, 4.8),
+    new THREE.Vector3(-0.2, 0.2, 5.0),
+    new THREE.Vector3(0, -0.1, 6.0),
+    new THREE.Vector3(0.1, 0.3, 5.3),
+    new THREE.Vector3(0, 0.5, 3.0),
+    new THREE.Vector3(0, 0.3, 5.5)
+  ];
+  const cameraPath = new THREE.CatmullRomCurve3(curvePoints);
+  
   const renderer = new THREE.WebGLRenderer({
     canvas,
     alpha: true,
@@ -28,22 +40,22 @@ export function initScene() {
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.1;
 
-  // Lighting
-  const ambientLight = new THREE.AmbientLight(0x0a1a0d, 0.3);
+  // Lighting - dramatic high contrast
+  const ambientLight = new THREE.AmbientLight(0x050a06, 0.4);
   scene.add(ambientLight);
 
-  const hemiLight = new THREE.HemisphereLight(0x33ff77, 0x001a05, 0.5);
+  const hemiLight = new THREE.HemisphereLight(0x33ff77, 0x000a05, 0.3);
   scene.add(hemiLight);
 
-  const key = new THREE.PointLight(0x00ff41, 20, 25);
+  const key = new THREE.PointLight(0x00ff41, 15, 30);
   key.position.set(0, 0.8, 3);
   scene.add(key);
 
-  const fillLight = new THREE.PointLight(0x00cc33, 10, 20);
+  const fillLight = new THREE.PointLight(0x00aa33, 8, 25);
   fillLight.position.set(-2, 0, 2);
   scene.add(fillLight);
 
-  const rimLight = new THREE.PointLight(0x88ffaa, 6, 15);
+  const rimLight = new THREE.PointLight(0x88ffaa, 5, 20);
   rimLight.position.set(2, -1, -2);
   scene.add(rimLight);
 
@@ -54,15 +66,12 @@ export function initScene() {
 
   // Particles
   const isMobile = window.matchMedia("(max-width: 900px)").matches;
-  const particleCount = isMobile ? 1500 : 4000;
+  const particleCount = isMobile ? 1000 : 3000; // Adjusted for perf
   const particles = createEnergyParticles(omnitrix, particleCount);
 
   // Post-processing
   const { composer, bloom } = createGlowComposer(renderer, scene, camera);
-  bloom.strength = 1.2; // Subtler bloom
-
-  // Color transitions are handled in individual section files for smoother effects
-  // This keeps the base color green throughout
+  bloom.strength = 1.0; // Subtler bloom
 
   const updatables = [particles];
 
@@ -78,6 +87,7 @@ export function initScene() {
   return {
     scene,
     camera,
+    cameraPath,
     renderer,
     composer,
     bloom,
@@ -89,9 +99,8 @@ export function initScene() {
       for (const unit of updatables) unit.update?.(time);
 
       if (omnitrix.userData.centerGem) {
-        omnitrix.userData.centerGem.rotation.y = time * 0.4;
-        omnitrix.userData.centerGem.rotation.x =
-          Math.sin(time * 0.25) * 0.15;
+        omnitrix.userData.centerGem.rotation.y = time * 0.2;
+        omnitrix.userData.centerGem.rotation.x = Math.sin(time * 0.15) * 0.1;
       }
     },
     render() {

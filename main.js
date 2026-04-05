@@ -4,6 +4,9 @@ import { initScene } from "./src/core/scene.js";
 import { setupScrollSync } from "./src/core/scroll.js";
 import { initResponsive } from "./src/utils/responsive.js";
 import { initChapterNav } from "./src/core/chapterNav.js";
+import { registerEasing } from "./src/utils/easing.js";
+import { initCursor } from "./src/effects/cursor.js";
+import { initAudioUI } from "./src/core/audio.js";
 import { initPrologue } from "./src/sections/prologue.js";
 import { initDiscovery } from "./src/sections/discovery.js";
 import { initAliens } from "./src/sections/aliens.js";
@@ -15,6 +18,9 @@ import { initLegacy } from "./src/sections/legacy.js";
 
 async function bootstrap() {
   initResponsive();
+  registerEasing();
+  initCursor();
+  initAudioUI();
   await initLoader();
 
   const sceneContext = initScene();
@@ -32,3 +38,4 @@ async function bootstrap() {
 }
 
 bootstrap();
+

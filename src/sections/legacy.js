@@ -1,4 +1,6 @@
 import { gsap, ScrollTrigger } from "../core/scroll.js";
+import { splitCharsAndWords } from "../utils/textSplit.js";
+import { audioManager } from "../core/audio.js";
 
 const ALIENS = [
   { name: "Heatblast", species: "Pyronite", stats: "Power: 95 | Speed: 75 | Defense: 60", desc: "Living inferno from Pyros", icon: "🔥", image: "/assets/images/heatblast.png" },
@@ -13,7 +15,7 @@ const ALIENS = [
   { name: "Ghostfreak", species: "Ectonurite", stats: "Stealth: 100 | Fear: 90 | Power: 60", desc: "Ghostly infiltrator", icon: "👻", image: "/assets/images/ghostfreak.png" },
 ];
 
-export function initLegacy() {
+export function initLegacy(sceneContext) {
   const section = document.querySelector("#legacy");
   if (!section) return;
 
@@ -25,21 +27,27 @@ export function initLegacy() {
   const grid = document.querySelector("#legacy-grid");
   const detail = document.querySelector("#legacy-detail");
 
-  // Header entrance (scrubbed)
+  if (heading) splitCharsAndWords(heading);
+  if (quote) splitCharsAndWords(quote);
+
   gsap.fromTo(tag, { opacity: 0, y: 20 }, {
-    opacity: 1, y: 0, duration: 0.6, ease: "none",
+    opacity: 1, y: 0, duration: 0.6, ease: "power2.out",
     scrollTrigger: { trigger: section, start: "top 80%", end: "top 55%", scrub: 1 },
   });
 
-  gsap.fromTo(heading, { opacity: 0, filter: "blur(4px)" }, {
-    opacity: 1, filter: "blur(0px)", duration: 0.8, ease: "none",
-    scrollTrigger: { trigger: section, start: "top 75%", end: "top 45%", scrub: 1 },
-  });
+  if (heading) {
+    gsap.fromTo(heading.querySelectorAll(".word-inner"), { yPercent: 120, opacity: 0 }, {
+      yPercent: 0, opacity: 1, duration: 0.8, stagger: 0.05, ease: "power2.out",
+      scrollTrigger: { trigger: section, start: "top 75%", end: "top 45%", scrub: 1 },
+    });
+  }
 
-  gsap.fromTo(quote, { opacity: 0, y: 15 }, {
-    opacity: 1, y: 0, duration: 0.8, ease: "none",
-    scrollTrigger: { trigger: section, start: "top 70%", end: "top 40%", scrub: 1 },
-  });
+  if (quote) {
+    gsap.fromTo(quote.querySelectorAll(".word-inner"), { yPercent: 120, opacity: 0 }, {
+      yPercent: 0, opacity: 1, duration: 0.8, stagger: 0.02, ease: "power2.out",
+      scrollTrigger: { trigger: section, start: "top 70%", end: "top 40%", scrub: 1 },
+    });
+  }
 
   // Timeline line draws progressively
   if (timelineLine) {
@@ -52,22 +60,22 @@ export function initLegacy() {
           trigger: "#timeline",
           start: "top 85%",
           end: "bottom 80%",
-          scrub: 1,
+          scrub: 1.5,
         },
       }
     );
   }
 
-  // Timeline nodes stagger in (scrubbed)
+  // Timeline nodes stagger in
   gsap.fromTo(
     nodes,
-    { opacity: 0, x: 20 },
+    { opacity: 0, x: 50 },
     {
       opacity: 1,
       x: 0,
-      duration: 0.6,
+      duration: 0.8,
       stagger: 0.15,
-      ease: "none",
+      ease: "power2.out",
       scrollTrigger: {
         trigger: "#timeline",
         start: "top 80%",
@@ -82,16 +90,17 @@ export function initLegacy() {
     const dot = node.querySelector(".timeline-dot");
     if (dot) {
       gsap.fromTo(dot,
-        { scale: 1 },
+        { scale: 0 },
         {
-          scale: 1.3,
-          duration: 0.4,
-          ease: "none",
+          scale: 1,
+          duration: 0.6,
+          ease: "back.out(2)",
           scrollTrigger: {
             trigger: node,
             start: "top 85%",
             end: "top 65%",
             scrub: 1,
+            onEnter: () => audioManager.createOscillatorPulse(600, 0.1) // Tiny blip
           }
         }
       );
@@ -103,7 +112,7 @@ export function initLegacy() {
     grid.innerHTML = "";
     ALIENS.forEach((alien) => {
       const btn = document.createElement("button");
-      btn.className = "legacy-alien-btn";
+      btn.className = "legacy-alien-btn magnetic"; // added magnetic
       btn.dataset.alien = alien.name;
       btn.innerHTML = `
         <div class="alien-icon">${alien.icon}</div>
@@ -126,6 +135,9 @@ export function initLegacy() {
         const info = ALIENS.find((a) => a.name === key);
         if (!info || !detail) return;
 
+        // Play dial select sound
+        audioManager.createOscillatorPulse(800, 0.2);
+
         // Update detail panel
         const detailIcon = detail.querySelector(".detail-icon");
         const detailTitle = detail.querySelector("h4");
@@ -146,8 +158,8 @@ export function initLegacy() {
         if (flash) {
           gsap
             .timeline()
-            .to(flash, { opacity: 0.6, duration: 0.1, ease: "power2.in" })
-            .to(flash, { opacity: 0, duration: 0.3, ease: "power2.out" });
+            .to(flash, { opacity: 0.6, duration: 0.05, ease: "power2.in" })
+            .to(flash, { opacity: 0, duration: 0.4, ease: "power2.out" });
         }
 
         // Detail entrance
@@ -157,59 +169,41 @@ export function initLegacy() {
           { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.5)" }
         );
 
-        // Icon spin
-        if (detailIcon) {
-          gsap.fromTo(
-            detailIcon,
-            { scale: 0, rotation: -180 },
-            { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2)" }
-          );
-        }
-
         // Burst particles
         burst(btn);
       });
     });
   }
 
-  // Selection grid entrance (scrubbed)
+  // Selection grid entrance
   gsap.from(".legacy-alien-btn", {
     opacity: 0,
     y: 30,
-    duration: 0.5,
-    stagger: 0.06,
-    ease: "none",
+    scale: 0.9,
+    duration: 0.8,
+    stagger: 0.08,
+    ease: "power2.out",
     scrollTrigger: {
       trigger: ".legacy-selection",
       start: "top 80%",
       end: "top 50%",
-      scrub: 1,
+      scrub: 1.5,
     },
   });
 
   // Smooth transition to gold when entering legacy
-  ScrollTrigger.create({
-    trigger: section,
-    start: "top 80%",
-    onEnter: () => {
-      gsap.to(sceneContext.energyLight.color, {
-        r: 0.83,
-        g: 0.66,
-        b: 0.29,
-        duration: 2,
-        ease: "power1.inOut",
-      });
-    },
-    onLeaveBack: () => {
-      gsap.to(sceneContext.energyLight.color, {
-        r: 0.46,
-        g: 0.2,
-        b: 0.8,
-        duration: 2,
-        ease: "power1.inOut",
-      });
-    },
-  });
+  if (sceneContext) {
+    ScrollTrigger.create({
+      trigger: section,
+      start: "top 80%",
+      onEnter: () => {
+        gsap.to(sceneContext.energyLight.color, { r: 0.83, g: 0.66, b: 0.29, duration: 2, ease: "power1.inOut" });
+      },
+      onLeaveBack: () => {
+        gsap.to(sceneContext.energyLight.color, { r: 0.67, g: 1, b: 0.8, duration: 2, ease: "power1.inOut" });
+      },
+    });
+  }
 }
 
 function burst(card) {

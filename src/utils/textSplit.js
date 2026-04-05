@@ -1,105 +1,68 @@
-export function splitTextIntoWords(element) {
-  if (!element) return [];
+export function splitCharsAndWords(element) {
+  if (!element) return { chars: [], words: [] };
+
+  const text = element.textContent.trim();
+  element.innerHTML = "";
+  element.style.display = "inline-block"; // Helps with layout
   
   const words = [];
-  const walker = document.createTreeWalker(
-    element,
-    NodeFilter.SHOW_TEXT,
-    null,
-    false
-  );
-  
-  let currentParent = null;
-  let wordIndex = 0;
-  
-  while (walker.nextNode()) {
-    const node = walker.currentNode;
-    const text = node.textContent;
-    const parent = node.parentNode;
-    
-    if (parent === currentParent) {
-      wordIndex++;
+  const chars = [];
+
+  text.split(/(\s+)/).forEach((part) => {
+    if (part.match(/^\s+$/)) {
+      element.appendChild(document.createTextNode(part));
     } else {
-      currentParent = parent;
-      wordIndex = 0;
-    }
-    
-    if (text.trim()) {
-      const wordElements = text.split(/(\s+)/).map((part) => {
-        if (part.match(/^\s+$/)) {
-          return part;
-        }
-        
-        const span = document.createElement("span");
-        span.className = "word";
-        span.textContent = part;
-        return span;
-      });
+      // Wrapper for overflow masking
+      const maskWrap = document.createElement("span");
+      maskWrap.className = "text-mask-wrap";
+      maskWrap.style.display = "inline-block";
+      maskWrap.style.overflow = "hidden";
+      maskWrap.style.verticalAlign = "top";
+
+      const wordSpan = document.createElement("span");
+      wordSpan.className = "word-inner";
+      wordSpan.style.display = "inline-block";
+      wordSpan.style.willChange = "transform";
       
-      words.push({
-        element: node,
-        parent: parent,
-        wordElements,
-        wordIndex: wordIndex
+      // Also split into chars if needed
+      part.split("").forEach((char) => {
+        const charSpan = document.createElement("span");
+        charSpan.className = "char";
+        charSpan.style.display = "inline-block";
+        charSpan.textContent = char;
+        wordSpan.appendChild(charSpan);
+        chars.push(charSpan);
       });
+
+      maskWrap.appendChild(wordSpan);
+      element.appendChild(maskWrap);
+      words.push(wordSpan);
     }
-  }
-  
-  return words;
+  });
+
+  return { words, chars };
 }
 
 export function wrapWordsInSpan(element, className = "word") {
   if (!element) return;
-  
-  const walker = document.createTreeWalker(
-    element,
-    NodeFilter.SHOW_TEXT,
-    null,
-    false
-  );
-  
-  const nodesToReplace = [];
-  
-  while (walker.nextNode()) {
-    const node = walker.currentNode;
-    if (node.textContent.trim()) {
-      nodesToReplace.push(node);
+  // Fallback for simple word split
+  const text = element.textContent;
+  element.innerHTML = "";
+  text.split(/(\s+)/).forEach(part => {
+    if (part.match(/^\s+$/)) {
+       element.appendChild(document.createTextNode(part));
+    } else {
+      const span = document.createElement("span");
+      span.className = className;
+      span.style.display = "inline-block";
+      span.textContent = part;
+      element.appendChild(span);
     }
-  }
-  
-  nodesToReplace.forEach((node) => {
-    const fragment = document.createDocumentFragment();
-    const text = node.textContent;
-    
-    text.split(/(\s+)/).forEach((part) => {
-      if (part.match(/^\s+$/)) {
-        fragment.appendChild(document.createTextNode(part));
-      } else {
-        const span = document.createElement("span");
-        span.className = className;
-        span.textContent = part;
-        fragment.appendChild(span);
-      }
-    });
-    
-    node.parentNode.replaceChild(fragment, node);
   });
 }
 
 export function splitHeadingWords(heading) {
   if (!heading) return;
-  
-  const text = heading.textContent;
-  heading.innerHTML = "";
-  
-  text.split(/(\s+)/).forEach((part) => {
-    if (part.match(/^\s+$/)) {
-      heading.appendChild(document.createTextNode(part));
-    } else {
-      const span = document.createElement("span");
-      span.className = "word";
-      span.textContent = part;
-      heading.appendChild(span);
-    }
-  });
+  const { words } = splitCharsAndWords(heading);
+  return words;
 }
