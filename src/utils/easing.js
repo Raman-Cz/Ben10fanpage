@@ -15,7 +15,3 @@ export function registerEasing() {
   CustomEase.create("customReveal", "0.19, 1, 0.22, 1");
   return EASES;
 }
-
-export function registerEasing() {
-  return EASES;
-}
