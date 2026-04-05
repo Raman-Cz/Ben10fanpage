@@ -106,7 +106,8 @@ export function initLegacy() {
       btn.className = "legacy-alien-btn";
       btn.dataset.alien = alien.name;
       btn.innerHTML = `
-        <img src="${alien.image}" alt="${alien.name}" onerror="this.style.display='none'" />
+        <div class="alien-icon">${alien.icon}</div>
+        <img src="${alien.image}" alt="${alien.name}" class="alien-img" onerror="this.style.display='none'" />
         <span>${alien.name}</span>
       `;
       grid.appendChild(btn);
@@ -183,6 +184,30 @@ export function initLegacy() {
       start: "top 80%",
       end: "top 50%",
       scrub: 1,
+    },
+  });
+
+  // Smooth transition to gold when entering legacy
+  ScrollTrigger.create({
+    trigger: section,
+    start: "top 80%",
+    onEnter: () => {
+      gsap.to(sceneContext.energyLight.color, {
+        r: 0.83,
+        g: 0.66,
+        b: 0.29,
+        duration: 2,
+        ease: "power1.inOut",
+      });
+    },
+    onLeaveBack: () => {
+      gsap.to(sceneContext.energyLight.color, {
+        r: 0.46,
+        g: 0.2,
+        b: 0.8,
+        duration: 2,
+        ease: "power1.inOut",
+      });
     },
   });
 }

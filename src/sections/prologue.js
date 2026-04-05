@@ -26,31 +26,17 @@ export function initPrologue(sceneContext) {
 
   const chars = splitChars(title);
 
-  // Entrance animations with scroll-back restoration
+  // Entrance animations - play on load (no scroll trigger for initial state)
   gsap.fromTo(
     badge,
     { opacity: 0, y: 20 },
-    {
-      opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.3,
-      scrollTrigger: {
-        trigger: section,
-        start: "top 90%",
-        toggleActions: "play none none reverse"
-      }
-    }
+    { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.3 }
   );
 
   gsap.fromTo(
     visuals,
     { opacity: 0, x: -30, scale: 0.9 },
-    {
-      opacity: 1, x: 0, scale: 1, duration: 1, ease: "power3.out", delay: 0.4,
-      scrollTrigger: {
-        trigger: section,
-        start: "top 85%",
-        toggleActions: "play none none reverse"
-      }
-    }
+    { opacity: 1, x: 0, scale: 1, duration: 1, ease: "power3.out", delay: 0.4 }
   );
 
   gsap.fromTo(
@@ -63,38 +49,19 @@ export function initPrologue(sceneContext) {
       duration: 0.5,
       ease: "back.out(1.5)",
       delay: 0.8,
-      scrollTrigger: {
-        trigger: section,
-        start: "top 80%",
-        toggleActions: "play none none reverse"
-      }
     }
   );
 
   gsap.fromTo(
     subtitle,
     { opacity: 0, y: 15 },
-    {
-      opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 1.2,
-      scrollTrigger: {
-        trigger: section,
-        start: "top 75%",
-        toggleActions: "play none none reverse"
-      }
-    }
+    { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 1.2 }
   );
 
   gsap.fromTo(
     stats,
     { opacity: 0, y: 15 },
-    {
-      opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 1.5,
-      scrollTrigger: {
-        trigger: section,
-        start: "top 70%",
-        toggleActions: "play none none reverse"
-      }
-    }
+    { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 1.5 }
   );
 
   // Scroll-out timeline (scrubbed) - extended duration
@@ -102,9 +69,10 @@ export function initPrologue(sceneContext) {
     scrollTrigger: {
       trigger: section,
       start: "top top",
-      end: "+=250%",
+      end: "+=400%",
       scrub: 2,
       pin: true,
+      anticipatePin: 1,
     },
   });
 

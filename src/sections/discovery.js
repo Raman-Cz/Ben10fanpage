@@ -104,4 +104,29 @@ export function initDiscovery(sceneContext) {
       scrub: 2,
     },
   });
+
+  // Smooth transition back to green when entering discovery from prologue
+  ScrollTrigger.create({
+    trigger: section,
+    start: "top 80%",
+    onEnter: () => {
+      gsap.to(sceneContext.energyLight.color, {
+        r: 0,
+        g: 1,
+        b: 0.25,
+        duration: 1.5,
+        ease: "power1.inOut",
+      });
+      gsap.to(sceneContext.energyLight, { intensity: 25, duration: 1 });
+    },
+    onLeaveBack: () => {
+      gsap.to(sceneContext.energyLight.color, {
+        r: 0,
+        g: 1,
+        b: 0.25,
+        duration: 1.5,
+        ease: "power1.inOut",
+      });
+    },
+  });
 }

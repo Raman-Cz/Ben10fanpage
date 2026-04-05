@@ -93,8 +93,37 @@ export function initGhostfreakChapter(sceneContext) {
     },
   });
 
-  // Chapter-reactive lighting — shift to purple
-  const tl = gsap.timeline({
+  // Smooth transition to purple when entering ghostfreak
+  ScrollTrigger.create({
+    trigger: section,
+    start: "top 80%",
+    onEnter: () => {
+      gsap.to(sceneContext.energyLight.color, {
+        r: 0.46,
+        g: 0.2,
+        b: 0.8,
+        duration: 2,
+        ease: "power1.inOut",
+      });
+      gsap.to(sceneContext.energyLight, { intensity: 15, duration: 1.5 });
+    },
+    onLeaveBack: () => {
+      gsap.to(sceneContext.energyLight.color, {
+        r: 1,
+        g: 0,
+        b: 0.2,
+        duration: 2,
+        ease: "power1.inOut",
+      });
+      gsap.to(sceneContext.energyLight, { intensity: 25, duration: 1.5 });
+    },
+  });
+
+  // Smooth camera movement
+  gsap.to(sceneContext.camera.position, {
+    x: 0.1,
+    z: 5.3,
+    ease: "none",
     scrollTrigger: {
       trigger: section,
       start: "top center",
@@ -102,7 +131,4 @@ export function initGhostfreakChapter(sceneContext) {
       scrub: 2,
     },
   });
-
-  tl.to(sceneContext.energyLight, { intensity: 8, duration: 0.5 }, 0);
-  tl.to(sceneContext.camera.position, { x: 0.1, z: 5.5, duration: 0.5 }, 0);
 }

@@ -137,4 +137,28 @@ export function initVillainsChapter(sceneContext) {
       scrub: 2,
     },
   });
+
+  // Smooth transition to red when entering villains
+  ScrollTrigger.create({
+    trigger: section,
+    start: "top 80%",
+    onEnter: () => {
+      gsap.to(sceneContext.energyLight.color, {
+        r: 1,
+        g: 0,
+        b: 0.2,
+        duration: 2,
+        ease: "power1.inOut",
+      });
+    },
+    onLeaveBack: () => {
+      gsap.to(sceneContext.energyLight.color, {
+        r: 0,
+        g: 0.5,
+        b: 0.8,
+        duration: 2,
+        ease: "power1.inOut",
+      });
+    },
+  });
 }

@@ -42,8 +42,8 @@ export function initChapterNav(lenis) {
 
     ScrollTrigger.create({
       trigger: el,
-      start: "top 60%",
-      end: "bottom 40%",
+      start: "top 90%",
+      end: "top 10%",
       onEnter: () => setActiveChapter(i),
       onEnterBack: () => setActiveChapter(i),
     });
@@ -75,12 +75,14 @@ export function initChapterNav(lenis) {
       }
     });
 
-    // Update progress bar
-    const progress = (idx / (CHAPTERS.length - 1)) * 100;
+    // Update progress bar - calculate based on scroll position within full page
+    const scrollProgress = lenis?.scroll || 0;
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const progress = Math.min((scrollProgress / maxScroll) * 100, 100);
     gsap.to(progressBar, {
       height: `${progress}%`,
       backgroundColor: CHAPTERS[idx].color,
-      duration: 0.4,
+      duration: 0.2,
     });
 
     if (labelNum && labelName && label) {

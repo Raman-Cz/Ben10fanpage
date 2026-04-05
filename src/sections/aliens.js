@@ -105,6 +105,45 @@ export function initAliens(sceneContext) {
       scrub: 2,
     },
   });
+
+  // Smooth color transition for aliens chapter - more gradual
+  gsap.to(sceneContext.energyLight.color, {
+    r: 0.4,
+    g: 0.25,
+    b: 0.1,
+    duration: 2,
+    ease: "power1.inOut",
+    scrollTrigger: {
+      trigger: section,
+      start: "top 60%",
+      end: "center center",
+      scrub: 2,
+    },
+  });
+
+  // Return to green when leaving aliens
+  ScrollTrigger.create({
+    trigger: "#plumbers",
+    start: "top 80%",
+    onEnter: () => {
+      gsap.to(sceneContext.energyLight.color, {
+        r: 0,
+        g: 1,
+        b: 0.25,
+        duration: 1.5,
+        ease: "power1.inOut",
+      });
+    },
+    onLeaveBack: () => {
+      gsap.to(sceneContext.energyLight.color, {
+        r: 0.4,
+        g: 0.25,
+        b: 0.1,
+        duration: 1.5,
+        ease: "power1.inOut",
+      });
+    },
+  });
 }
 
 function animateSlideIn(slide, img, info, bars, h3, species, story) {

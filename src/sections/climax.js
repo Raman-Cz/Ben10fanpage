@@ -119,4 +119,30 @@ export function initClimax(sceneContext) {
       scrub: 2,
     },
   });
+
+  // Smooth transition to white-green when entering climax
+  ScrollTrigger.create({
+    trigger: section,
+    start: "top 80%",
+    onEnter: () => {
+      gsap.to(sceneContext.energyLight.color, {
+        r: 0.67,
+        g: 1,
+        b: 0.8,
+        duration: 2,
+        ease: "power1.inOut",
+      });
+      gsap.to(sceneContext.energyLight, { intensity: 30, duration: 1.5 });
+    },
+    onLeaveBack: () => {
+      gsap.to(sceneContext.energyLight.color, {
+        r: 0.46,
+        g: 0.2,
+        b: 0.8,
+        duration: 2,
+        ease: "power1.inOut",
+      });
+      gsap.to(sceneContext.energyLight, { intensity: 15, duration: 1.5 });
+    },
+  });
 }

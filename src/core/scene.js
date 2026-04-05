@@ -2,18 +2,6 @@ import * as THREE from "three";
 import { createOmnitrix } from "../objects/omnitrix.js";
 import { createEnergyParticles } from "../effects/particles.js";
 import { createGlowComposer } from "../effects/glow.js";
-import { gsap, ScrollTrigger } from "./scroll.js";
-
-const CHAPTER_COLORS = {
-  0: 0x00ff41,  // Prologue - Green
-  1: 0x00ff41,  // Discovery - Green
-  2: 0xff6b00,  // Aliens - Orange/Heatblast (changes per alien)
-  3: 0x4488ff,  // Plumbers - Blue
-  4: 0xff0033,  // Villains - Red
-  5: 0x7733cc,  // Ghostfreak - Purple
-  6: 0xaaffcc,  // Climax - White-green
-  7: 0xd4a849,  // Legacy - Gold
-};
 
 export function initScene() {
   const canvas = document.querySelector("#three-canvas");
@@ -73,30 +61,8 @@ export function initScene() {
   const { composer, bloom } = createGlowComposer(renderer, scene, camera);
   bloom.strength = 1.2; // Subtler bloom
 
-  // Chapter-based color shifting
-  const chapters = document.querySelectorAll(".chapter");
-  chapters.forEach((chapter, index) => {
-    const chapterNum = parseInt(chapter.dataset.chapter);
-    const color = CHAPTER_COLORS[chapterNum] || 0x00ff41;
-    
-    ScrollTrigger.create({
-      trigger: chapter,
-      start: "top 40%",
-      end: "bottom 40%",
-      onEnter: () => shiftEnergyColor(key, color),
-      onEnterBack: () => shiftEnergyColor(key, color),
-    });
-  });
-
-  function shiftEnergyColor(light, color) {
-    gsap.to(light.color, {
-      r: new THREE.Color(color).r,
-      g: new THREE.Color(color).g,
-      b: new THREE.Color(color).b,
-      duration: 0.8,
-      ease: "power2.out",
-    });
-  }
+  // Color transitions are handled in individual section files for smoother effects
+  // This keeps the base color green throughout
 
   const updatables = [particles];
 
